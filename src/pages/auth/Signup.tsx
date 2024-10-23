@@ -1,11 +1,11 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import Input from "../components/ui/Input";
-import { TUser } from "../types/Signup.type";
-import Button from "../components/ui/Button";
-import { useSignupMutation } from "../redux/features/auth/authApi";
+import Input from "../../components/ui/Input";
+import { TUser } from "../../types/Signup.type";
+import Button from "../../components/ui/Button";
+import { useSignupMutation } from "../../redux/features/auth/authApi";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userValidation } from "../schemas/validation";
+import { userValidation } from "../../schemas/validation";
 import { Divider } from "antd";
 import { Link } from "react-router-dom";
 
@@ -32,7 +32,6 @@ const Signup = () => {
   };
 
   return (
-    <div>
       <div className="bg-gray-100 flex items-center justify-center h-screen">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
           <Divider style={{ fontSize: "40px" }}>Sign Up</Divider>
@@ -112,7 +111,6 @@ const Signup = () => {
           </p>
         </div>
       </div>
-    </div>
   );
 };
 

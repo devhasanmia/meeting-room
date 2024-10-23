@@ -1,4 +1,4 @@
-import Signup from "./pages/Signup"
+import Signup from "./pages/auth/Signup"
 
 const App = () => {
   return (
