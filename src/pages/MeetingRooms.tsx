@@ -23,7 +23,6 @@ const MeetingRooms = () => {
             <option value="11-20">11-20</option>
           </select>
         </div>
-
         <div className="mb-6">
           <Divider style={{ fontSize: "25px" }}>Filter by Price</Divider>
           <select className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400">

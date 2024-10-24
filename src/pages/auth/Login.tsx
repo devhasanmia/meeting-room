@@ -9,12 +9,14 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hooks";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { tokenVerify } from "../../utils/tokenVerify";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   type TuserLogin = Pick<TUser, "email" | "password">;
-
   const [login, { isLoading, data: loginData }] = useLoginMutation();
-
   const {
     register,
     handleSubmit,
@@ -26,7 +28,14 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<TuserLogin> = async (formData) => {
     try {
-      await login(formData).unwrap();
+      const res = await login(formData).unwrap();
+      const userDecoded = tokenVerify(res.token);
+      dispatch(
+        setUser({
+          user: userDecoded,
+          token: res?.token,
+        })
+      );
       reset();
     } catch (error: any) {
       toast.error(error.data.message);
