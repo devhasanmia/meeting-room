@@ -49,7 +49,7 @@ const Login = () => {
   }, [loginData]);
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center h-screen">
+    <div className="bg-gray-100 flex items-center justify-center min-h-[100vh]">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
         <Divider style={{ fontSize: "40px" }}>Login</Divider>
         <form onSubmit={handleSubmit(onSubmit)}>

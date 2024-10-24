@@ -34,11 +34,11 @@ const ContactUs = () => {
     console.log(formData);
   };
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
+    <div className=" bg-gray-100 flex items-center justify-center p-6 min-h-screen">
       <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-8">
         <Divider style={{ fontSize: "30px" }}>Contact Us</Divider>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex flex-col justify-center space-y-6">
+          <div className="flex flex-col justify-between space-y-6">
             <div className="p-4 text-center">
               <h3 className="text-lg font-semibold">Email</h3>
               <p className="text-gray-600">hasanmiaweb@gmail.com</p>
