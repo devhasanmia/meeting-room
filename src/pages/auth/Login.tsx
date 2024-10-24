@@ -8,12 +8,13 @@ import { loginValidation } from "../../schemas/validation";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { tokenVerify } from "../../utils/tokenVerify";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   type TuserLogin = Pick<TUser, "email" | "password">;
   const [login, { isLoading, data: loginData }] = useLoginMutation();
@@ -34,7 +35,8 @@ const Login = () => {
         setUser({
           user: userDecoded,
           token: res?.token,
-        })
+        }),
+        navigate(`/user/dashboard`, { replace: true })
       );
       reset();
     } catch (error: any) {

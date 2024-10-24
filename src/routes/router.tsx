@@ -7,8 +7,14 @@ import MeetingRooms from "../pages/MeetingRooms";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Home from "../pages/Home";
+import UserDahboard from "../components/layout/UserDahboard";
 
 const router = createBrowserRouter([
+  {
+    path: "/user/dashboard",
+    element: <UserDahboard/>,
+
+  },
   {
     path: "/",
     element: <MainLayout />,

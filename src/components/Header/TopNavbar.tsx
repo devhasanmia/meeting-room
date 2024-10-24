@@ -33,11 +33,12 @@ const TopHeader = () => {
                 <h1 className="hidden md:block text-gray-800">
                   Hi! {user?.name}
                 </h1>
-
                 <div className="flex gap-4">
-                  <button className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
-                    Dashboard
-                  </button>
+                  <Link to={"/user/dashboard"}>
+                    <button className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
+                      Dashboard
+                    </button>
+                  </Link>
                   <button
                     onClick={() => {
                       dispatch(logout());

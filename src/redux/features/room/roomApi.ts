@@ -9,9 +9,7 @@ const roomApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
-    // All Room Get End
-
   }),
 });
 
-export const {useGetRoomsQuery} = roomApi;
+export const { useGetRoomsQuery } = roomApi;
