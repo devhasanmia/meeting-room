@@ -8,9 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidation } from "../../schemas/validation";
 import { Divider } from "antd";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Signup = () => {
-  const [signup, { isLoading }] = useSignupMutation();
+  const [signup, { isLoading, data: signupData }] = useSignupMutation();
 
   const {
     register,
@@ -24,12 +25,17 @@ const Signup = () => {
   const onSubmit: SubmitHandler<TUser> = async (formData) => {
     try {
       await signup(formData).unwrap();
-      toast.success("User Created Successfully");
       reset();
     } catch (error: any) {
       toast.error(error.data.errorMessages[0].message);
     }
   };
+  
+  useEffect(() => {
+    if (signupData) {
+      toast.success(signupData?.message);
+    }
+  }, [signupData]);
 
   return (
       <div className="bg-gray-100 flex items-center justify-center h-screen">
@@ -70,23 +76,6 @@ const Signup = () => {
                 name="phone"
                 placeholder="Phone Number"
               />
-              <div className="mb-4">
-                <label
-                  htmlFor="role"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Role
-                </label>
-                <select
-                  {...register("role")}
-                  id="role"
-                  name="role"
-                  className="mt-1 block w-full p-3 border border-green-400 rounded-md shadow-sm focus:outline-none ring-1 focus:ring-green-500 focus:border-green-500"
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
               <Input
                 errors={errors}
                 register={register("address")}

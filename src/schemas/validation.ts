@@ -24,7 +24,7 @@ export const userValidation = z.object({
       invalid_type_error: "Phone must be a string",
       required_error: "Phone is required",
     })
-    .min(11, "Phone must be at least 3 characters"),
+    .min(11, "Phone must be at least 11 characters"),
   address: z
     .string({
       invalid_type_error: "Address must be a string",
@@ -34,8 +34,6 @@ export const userValidation = z.object({
   role: z.enum(["user", "admin"]).default("user"),
 });
 
-
-
 export const loginValidation = z.object({
   email: z
     .string({
@@ -44,7 +42,7 @@ export const loginValidation = z.object({
     })
     .min(4, "Email must be at least 4 characters long.")
     .email("Please enter a valid email address."),
-    
+
   password: z
     .string({
       invalid_type_error: "The password must be a valid string.",
@@ -52,4 +50,3 @@ export const loginValidation = z.object({
     })
     .min(6, "Password must be at least 6 characters long for better security."),
 });
-

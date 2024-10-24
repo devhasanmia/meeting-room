@@ -9,6 +9,6 @@ import router from "./routes/router.tsx";
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <RouterProvider router={router}/>
-    <Toaster richColors position="top-right" />
+    <Toaster richColors duration={2000} />
   </Provider>
 );
