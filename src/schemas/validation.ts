@@ -50,3 +50,19 @@ export const loginValidation = z.object({
     })
     .min(6, "Password must be at least 6 characters long for better security."),
 });
+
+export const contactSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "Name is required" })
+    .max(50, { message: "Name cannot exceed 50 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  subject: z
+    .string()
+    .min(1, { message: "Subject is required" })
+    .max(100, { message: "Subject cannot exceed 100 characters" }),
+  message: z
+    .string()
+    .min(10, { message: "Message must be at least 10 characters long" })
+    .max(500, { message: "Message cannot exceed 500 characters" }),
+});

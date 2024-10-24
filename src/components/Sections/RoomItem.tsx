@@ -22,7 +22,13 @@ const RoomItem = ({ _id, name, capacity, pricePerSlot }: TRoomProps) => {
         <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
         <p className="text-gray-600">Capacity: {capacity}</p>
         <p className="text-gray-600">Price per slot: ${pricePerSlot}</p>
-        <Button text="See Details" bgColor="bg-emerald-500"/>
+        <Button
+          text="See Details"
+          bgColor="bg-emerald-500"
+          onClick={() => {
+            console.log(_id);
+          }}
+        />
       </div>
     </div>
   );

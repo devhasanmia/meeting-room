@@ -22,6 +22,7 @@ const Input = <T extends FieldValues>({
   required = false,
   register,
   errors,
+
 }: InputProps<T>) => {
   const error = errors ? errors[name] : undefined;
 
