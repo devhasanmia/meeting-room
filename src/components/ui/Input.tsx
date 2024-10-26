@@ -12,7 +12,8 @@ type InputProps<T extends FieldValues> = {
   required?: boolean;
   register: UseFormRegisterReturn;
   errors?: FieldErrors<T>;
-  value?: string
+  value?: string,
+  onChange?: (() => void) | undefined
 };
 
 const Input = <T extends FieldValues>({
@@ -23,7 +24,8 @@ const Input = <T extends FieldValues>({
   required = false,
   register,
   errors,
-  value
+  value,
+  onChange
 
 }: InputProps<T>) => {
   const error = errors ? errors[name] : undefined;
@@ -45,6 +47,7 @@ const Input = <T extends FieldValues>({
         required={required}
         aria-invalid={!!error}
         value= {value}
+        onChange = {onChange}
         className={`mt-1 block w-full p-3 border rounded-md shadow-sm focus:outline-none ${
           error
             ? "border-red-500 ring-red-500"

@@ -33,9 +33,9 @@ const TopHeader = () => {
                   Hi! {user?.name}
                 </h1>
                 <div className="flex gap-4">
-                  <Link to={"/user/dashboard"}>
+                  <Link to={"/user/my-booking"}>
                     <button className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
-                      Dashboard
+                      My Bookings
                     </button>
                   </Link>
                   <button

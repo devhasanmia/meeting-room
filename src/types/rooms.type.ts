@@ -7,3 +7,13 @@ export type TRoomProps = {
     pricePerSlot: number;
     amenities: string[];
 };
+
+export type TRoomsProps = {
+    _id: string;
+    name: string;
+    roomNo: string;
+    floorNo: string;
+    capacity: string;
+    pricePerSlot: string;
+    amenities: string[];
+};

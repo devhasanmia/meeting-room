@@ -66,3 +66,39 @@ export const contactSchema = z.object({
     .min(10, { message: "Message must be at least 10 characters long" })
     .max(500, { message: "Message cannot exceed 500 characters" }),
 });
+
+export const roomCreateValidation = z.object({
+  name: z
+    .string({
+      invalid_type_error: "Room name must be a string",
+      required_error: "Room name is required",
+    })
+    .min(1, "Room name must be at least 1 character long"),
+  roomNo: z
+    .number({
+      invalid_type_error: "Room number must be a number",
+      required_error: "Room number is required",
+    })
+    .int()
+    .positive("Room number must be a positive integer"),
+  floorNo: z
+    .number({
+      invalid_type_error: "Floor number must be a number",
+      required_error: "Floor number is required",
+    })
+    .int()
+    .positive("Floor number must be a positive integer"),
+  capacity: z
+    .number({
+      invalid_type_error: "Capacity must be a number",
+      required_error: "Capacity is required",
+    })
+    .int()
+    .positive("Capacity must be a positive integer"),
+  pricePerSlot: z
+    .number({
+      invalid_type_error: "Price per slot must be a number",
+      required_error: "Price per slot is required",
+    })
+    .positive("Price per slot must be a positive number"),
+});

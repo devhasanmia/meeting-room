@@ -3,12 +3,15 @@ import {
   useBookingsMutation,
   useGetRoomsByIdQuery,
 } from "../redux/features/room/roomApi";
-import { useAppSelector } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Divider, Tag } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import Button from "../components/ui/Button";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type Slot = {
+  data: { date: any; startTime: any; endTime: any; isBooked: any; };
   _id: string;
   room: string;
   date: string;
@@ -18,6 +21,7 @@ type Slot = {
 };
 
 type Room = {
+  data: { name: any; roomNo: any; floorNo: any; capacity: any; pricePerSlot: any; amenities: any; };
   _id: string;
   name: string;
   roomNo: number;
@@ -36,6 +40,18 @@ type RoomDetailsData = {
 };
 
 const BookingSummary = () => {
+  const booking = useAppSelector(
+    (state) => state.booking.room && state.booking.user
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!booking) {
+      navigate("/meeting-rooms");
+    }
+  }, [booking, navigate]);
+
+  if (!booking) return null;
   const roomId = useAppSelector((state) => state.booking.room);
   const roomBookingR = useAppSelector((state) => state.booking);
   const bookingSlot = useAppSelector((state) => state.booking.slots);

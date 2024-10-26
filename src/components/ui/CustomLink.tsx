@@ -5,6 +5,7 @@ type CustomLinkProps = {
   to: string;
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void
 };
 
 const CustomLink = ({ to, children, className = "" }: CustomLinkProps) => {

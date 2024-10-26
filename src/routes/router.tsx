@@ -7,22 +7,19 @@ import MeetingRooms from "../pages/MeetingRooms";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import Home from "../pages/Home";
-import Dashboard from "../pages/users/Dashboard";
 import UserLayout from "../components/layout/UserLayout";
 import MyBooking from "../pages/users/MyBooking";
 import MeetingRoomsDetails from "../pages/MeetingRoomsDetails";
 import Booking from "../pages/Booking";
 import BookingSummary from "../pages/BookingSummary";
+import AdminLayout from "../components/layout/AdminLayout";
+import CreateRoom from "../pages/admin/CreateRoom";
 
 const router = createBrowserRouter([
   {
     path: "/user/",
     element: <UserLayout />,
     children: [
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
       {
         path: "my-booking",
         element: <MyBooking />,
@@ -83,6 +80,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: "*",
     element: <MainLayout />,
@@ -93,6 +91,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:"/admin/dashboard",
+    element: <AdminLayout/>,
+    children: [
+      {
+        path:"create-room",
+        element: <CreateRoom/>
+      }
+    ]
+  }
 ]);
 
 export default router;

@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
-import {
-  useAvailabilitysQuery,
-} from "../redux/features/room/roomApi";
+import { useAvailabilitysQuery } from "../redux/features/room/roomApi";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../components/ui/Button";
 import { TBookingData } from "../types/booking.type";
 import { toast } from "sonner";
 import { bookingReduxStore } from "../redux/features/room/roomSlice";
+
 const Booking = () => {
   const booking = useAppSelector(
     (state) => state.booking.room && state.booking.user
@@ -16,13 +15,16 @@ const Booking = () => {
   const dispatch = useAppDispatch();
   const bookingRoom = useAppSelector((state) => state.booking.room);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!booking) {
       navigate("/meeting-rooms");
     }
   }, [booking, navigate]);
+
   if (!booking) return null;
-  const { register, handleSubmit, reset } = useForm<TBookingData>();
+
+  const { register, handleSubmit, reset, watch } = useForm<TBookingData>();
   const [selectedDate, setSelectedDate] = useState("");
   const {
     data: availableSlots,
@@ -30,11 +32,13 @@ const Booking = () => {
     isLoading,
     refetch,
   } = useAvailabilitysQuery({ date: selectedDate, room: bookingRoom });
+
   useEffect(() => {
     if (selectedDate && bookingRoom) {
       refetch();
     }
   }, [selectedDate, bookingRoom, refetch]);
+
   const onSubmit: SubmitHandler<TBookingData> = async (data) => {
     try {
       dispatch(
@@ -51,15 +55,10 @@ const Booking = () => {
       toast.error(error.data?.message || "An error occurred during booking.");
     }
   };
+
   return (
     <div className="bg-gray-100 flex items-center justify-center p-5">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
-        <h1
-          aria-disabled
-          className=" font-extrabold text-2xl center mt-1 block w-full p-3 border rounded-md shadow-sm"
-        >
-          Meeting Room
-        </h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <select
             className="border-green-400 ring-green-500 mt-1 block w-full p-3 border rounded-md shadow-sm focus:outline-none"
@@ -112,7 +111,18 @@ const Booking = () => {
                 ))
             )}
           </select>
-          <Button text="Checkout" type="submit" />
+          <Button
+            text="Checkout"
+            type="submit"
+            disabled={
+              !selectedDate || 
+              !bookingRoom || 
+              !booking || 
+              !watch("slotId") || 
+              isLoading || 
+              isError 
+            }
+          />
         </form>
       </div>
     </div>

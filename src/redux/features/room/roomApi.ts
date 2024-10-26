@@ -10,6 +10,13 @@ const roomApi = baseApi.injectEndpoints({
       }),
     }),
     // All Room Get End
+    createRoom: builder.mutation({
+      query: (data) => ({
+        url: "/rooms",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getRoomsById: builder.query({
       query: (id) => ({
         url: `/rooms/${id}`,
@@ -56,15 +63,23 @@ const roomApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    myBookings: builder.query({
+      query: () => ({
+        url: `/my-bookings`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 export const {
+  useMyBookingsQuery,
   useGetRoomsQuery,
   useGetRoomsByIdQuery,
   useAvailabilityQuery,
   useAvailabilitysQuery,
   useBookingsMutation,
   useAvailabilityByIdQuery,
-  useRoomsByIdQuery
+  useRoomsByIdQuery,
+  useCreateRoomMutation
 } = roomApi;

@@ -7,7 +7,6 @@ const FeaturedRooms = () => {
   const { data: rooms, isLoading } = useGetRoomsQuery(undefined);
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      
       {isLoading ? (
         <div className="flex justify-center items-center h-60">
           <Spin />

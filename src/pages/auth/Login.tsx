@@ -36,7 +36,7 @@ const Login = () => {
           user: userDecoded,
           token: res?.token,
         }),
-        navigate(`/user/dashboard`, { replace: true })
+        navigate(`/user/my-booking`, { replace: true })
       );
       reset();
     } catch (error: any) {
