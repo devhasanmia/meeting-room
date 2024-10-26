@@ -11,7 +11,6 @@ const TopHeader = () => {
   };
   const user = useAppSelector((state): TUser | null => state.auth?.user);
   const dispatch = useAppDispatch();
-
   return (
     <div className="bg-gray-150">
       <div className="bg-white px-7 mx-auto container-fluid lg:px-24 md:px-12 p-2">

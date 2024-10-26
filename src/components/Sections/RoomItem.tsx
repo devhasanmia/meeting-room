@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import MeetingRoomsDetails from "../../pages/MeetingRoomsDetails";
 import Button from "../ui/Button";
 
 type TRoomProps = {
@@ -22,13 +24,9 @@ const RoomItem = ({ _id, name, capacity, pricePerSlot }: TRoomProps) => {
         <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
         <p className="text-gray-600">Capacity: {capacity}</p>
         <p className="text-gray-600">Price per slot: ${pricePerSlot}</p>
-        <Button
-          text="See Details"
-          bgColor="bg-emerald-500"
-          onClick={() => {
-            console.log(_id);
-          }}
-        />
+        <Link to={`/meeting-rooms/meeting-rooms-details/${_id}`}>
+          <Button text="See Details" bgColor="bg-emerald-500" />
+        </Link>
       </div>
     </div>
   );

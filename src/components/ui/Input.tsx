@@ -8,10 +8,11 @@ type InputProps<T extends FieldValues> = {
   label: string;
   type?: string;
   name: keyof T;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   register: UseFormRegisterReturn;
   errors?: FieldErrors<T>;
+  value?: string
 };
 
 const Input = <T extends FieldValues>({
@@ -22,6 +23,7 @@ const Input = <T extends FieldValues>({
   required = false,
   register,
   errors,
+  value
 
 }: InputProps<T>) => {
   const error = errors ? errors[name] : undefined;
@@ -42,6 +44,7 @@ const Input = <T extends FieldValues>({
         placeholder={placeholder}
         required={required}
         aria-invalid={!!error}
+        value= {value}
         className={`mt-1 block w-full p-3 border rounded-md shadow-sm focus:outline-none ${
           error
             ? "border-red-500 ring-red-500"
