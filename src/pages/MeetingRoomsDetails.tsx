@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetRoomsByIdQuery } from "../redux/features/room/roomApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { booking } from "../redux/features/room/roomSlice";
+import { bookingReduxStore } from "../redux/features/room/roomSlice";
 import { useEffect } from "react";
 
 const MeetingRoomsDetails = () => {
@@ -81,9 +81,11 @@ const MeetingRoomsDetails = () => {
             <button
               onClick={() => {
                 dispatch(
-                  booking({
+                  bookingReduxStore({
                     user: user.userId,
                     room: roomsDetails.data._id,
+                    date: null,
+                    slots: null,
                   })
                 );
               }}

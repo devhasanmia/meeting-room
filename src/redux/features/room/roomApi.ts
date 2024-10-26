@@ -33,6 +33,22 @@ const roomApi = baseApi.injectEndpoints({
         };
       },
     }),
+    availabilityById: builder.query({
+      query: (id) => {
+        return {
+          url: `/slots/availability/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    roomsById: builder.query({
+      query: (id) => {
+        return {
+          url: `/rooms/${id}`,
+          method: "GET",
+        };
+      },
+    }),
     bookings: builder.mutation({
       query: (data) => ({
         url: `/bookings`,
@@ -48,5 +64,7 @@ export const {
   useGetRoomsByIdQuery,
   useAvailabilityQuery,
   useAvailabilitysQuery,
-  useBookingsMutation
+  useBookingsMutation,
+  useAvailabilityByIdQuery,
+  useRoomsByIdQuery
 } = roomApi;
