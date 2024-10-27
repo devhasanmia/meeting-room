@@ -18,6 +18,7 @@ const MeetingRoomsDetails = () => {
   if (!user) {
     return null;
   }
+
   const { _id } = useParams();
   const {
     data: roomsDetails,
@@ -50,32 +51,35 @@ const MeetingRoomsDetails = () => {
     );
   }
 
-  const { name, capacity, pricePerSlot, floorNo, roomNo, amenities } =
+  const { name, capacity, pricePerSlot, floorNo, roomNo, amenities, image } =
     roomsDetails.data;
 
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-3xl font-bold text-center mb-8">{name}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 bg-white shadow-lg p-6 rounded-lg">
-        <div>
-          <div className="mb-4">
-            <span className="font-semibold text-lg">Room Number:</span> {roomNo}
-          </div>
-          <div className="mb-4">
-            <span className="font-semibold text-lg">Capacity:</span> {capacity}{" "}
-            people
-          </div>
-          <div className="mb-4">
-            <span className="font-semibold text-lg">Price Per Slot:</span> $
-            {pricePerSlot}
-          </div>
-          <div className="mb-4">
-            <span className="font-semibold text-lg">Floor Number:</span>{" "}
-            {floorNo}
-          </div>
-          <div className="mb-4">
-            <span className="font-semibold text-lg">Amenities:</span>{" "}
-            {amenities.join(", ")}
+        <div className="flex flex-col justify-between">
+          <div>
+            <div className="mb-4">
+              <span className="font-semibold text-lg">Room Number:</span>{" "}
+              {roomNo}
+            </div>
+            <div className="mb-4">
+              <span className="font-semibold text-lg">Capacity:</span>{" "}
+              {capacity} people
+            </div>
+            <div className="mb-4">
+              <span className="font-semibold text-lg">Price Per Slot:</span> $
+              {pricePerSlot}
+            </div>
+            <div className="mb-4">
+              <span className="font-semibold text-lg">Floor Number:</span>{" "}
+              {floorNo}
+            </div>
+            <div className="mb-4">
+              <span className="font-semibold text-lg">Amenities:</span>{" "}
+              {amenities.join(", ")}
+            </div>
           </div>
           <Link to={"/room-booking"}>
             <button
@@ -94,6 +98,13 @@ const MeetingRoomsDetails = () => {
               Book Now
             </button>
           </Link>
+        </div>
+        <div className="flex justify-center items-center">
+          <img
+            src={image}
+            alt={name}
+            className="max-w-full h-auto rounded-lg"
+          />
         </div>
       </div>
     </div>

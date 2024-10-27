@@ -81,5 +81,5 @@ export const {
   useBookingsMutation,
   useAvailabilityByIdQuery,
   useRoomsByIdQuery,
-  useCreateRoomMutation
+  useCreateRoomMutation,
 } = roomApi;

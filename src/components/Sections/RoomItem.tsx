@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 
 type TRoomProps = {
   _id: string;
+  image: string;
   name: string;
   roomNo: number;
   floorNo: number;
@@ -12,11 +13,11 @@ type TRoomProps = {
   amenities: string[];
 };
 
-const RoomItem = ({ _id, name, capacity, pricePerSlot }: TRoomProps) => {
+const RoomItem = ({ _id, name, capacity, pricePerSlot, image }: TRoomProps) => {
   return (
     <div key={_id} className="bg-white shadow-md rounded-lg overflow-hidden">
       <img
-        src="https://checkout.puffy.ca/cdn/shop/articles/aesthetic-room-decor-ideas-3_1600x.jpg"
+        src={image}
         alt={name}
         className="w-full h-60 object-cover"
       />

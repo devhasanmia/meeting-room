@@ -1,5 +1,6 @@
 export type TRoomProps = {
     _id: string;
+    image: string;
     name: string;
     roomNo: number;
     floorNo: number;
