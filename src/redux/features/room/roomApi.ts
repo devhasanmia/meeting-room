@@ -88,7 +88,6 @@ const roomApi = baseApi.injectEndpoints({
     }),
     roomBookingStatusUpdate: builder.mutation({
       query: ({ id, isConfirmed }) => {
-        console.log({ ID: id, IsConfirmed: isConfirmed });
         return {
           url: `/bookings/${id}`,
           method: "PUT",

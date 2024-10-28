@@ -18,6 +18,7 @@ import RoomList from "../pages/admin/RoomList";
 import Dashboard from "../pages/admin/Dashboard";
 import EditRoom from "../pages/admin/EditRoom";
 import BookingsList from "../pages/admin/BookingsList";
+import UserList from "../pages/admin/UserList";
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,10 @@ const router = createBrowserRouter([
       {
         path: "booking-list",
         element: <BookingsList />,
+      },
+      {
+        path: "user-list",
+        element: <UserList />,
       },
     ],
   },

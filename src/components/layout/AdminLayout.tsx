@@ -2,7 +2,7 @@ import { Layout, Menu } from "antd";
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content,Sider } = Layout;
 
 const items = [
   {
@@ -41,7 +41,7 @@ const items = [
   },
   {
     key: "user-list",
-    label: "User List",
+    label: <NavLink to={"/admin/dashboard/user-list"}>User List</NavLink>,
   },
   {
     key: "booking-list",

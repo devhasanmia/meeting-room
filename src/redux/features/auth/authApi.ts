@@ -26,12 +26,34 @@ const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/auth/all",
         method: "GET",
-      })
-    })
+      }),
+    }),
     // Get All User End
-    
-
+    // Role Change Start
+    roleChange: builder.mutation({
+      query: ({ id, role }) => {
+        return {
+          url: `/auth/${id}`,
+          method: "PUT",
+          body: { role },
+        };
+      },
+    }),
+    deleteUser: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/auth/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignupMutation, useLoginMutation, useGetAllUserQuery } = authApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useGetAllUserQuery,
+  useRoleChangeMutation,
+  useDeleteUserMutation
+} = authApi;
