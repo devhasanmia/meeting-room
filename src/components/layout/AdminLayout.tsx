@@ -31,11 +31,11 @@ const items = [
     children: [
       {
         key: "create-slot",
-        label: "Create Slot",
+        label: <NavLink to={"/admin/dashboard/create-slots"}>Create Slots</NavLink>,
       },
       {
         key: "slots-list",
-        label: "Slots List",
+        label: <NavLink to={"/admin/dashboard/slots-list"}>Slots List</NavLink>,
       },
     ],
   },

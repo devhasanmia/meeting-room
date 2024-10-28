@@ -1,4 +1,4 @@
-import { Button, Table } from "antd";
+import { Button, Divider, Table } from "antd";
 import {
   useDeleteUserMutation,
   useGetAllUserQuery,
@@ -64,15 +64,12 @@ const UserList = () => {
       key: "action",
       render: (_: any, record: any) => (
         <div className="flex gap-2">
-          <Button type="primary" disabled={record.role === "user"}>
-            User
-          </Button>
           <Button
             onClick={() => changeRole(record._id, "admin")}
             className="bg-emerald-400 hover:bg-emerald-600 text-white"
             disabled={record.role === "admin"}
           >
-            Admin
+            Make a Admin
           </Button>
           <Button
             onClick={() => handleDelete(record._id)}
@@ -89,6 +86,7 @@ const UserList = () => {
 
   return (
     <div>
+        <Divider>Only User List</Divider>
       <Table columns={columns} dataSource={users.data} />
     </div>
   );

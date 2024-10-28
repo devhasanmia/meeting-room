@@ -10,7 +10,7 @@ type InputProps<T extends FieldValues> = {
   name: keyof T;
   placeholder?: string;
   required?: boolean;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   errors?: FieldErrors<T>;
   value?: string,
   onChange?: (() => void) | undefined

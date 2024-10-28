@@ -19,6 +19,8 @@ import Dashboard from "../pages/admin/Dashboard";
 import EditRoom from "../pages/admin/EditRoom";
 import BookingsList from "../pages/admin/BookingsList";
 import UserList from "../pages/admin/UserList";
+import CreateSlots from "../pages/admin/CreateSlots";
+import SlotsList from "../pages/admin/SlotsList";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +125,14 @@ const router = createBrowserRouter([
       {
         path: "user-list",
         element: <UserList />,
+      },
+      {
+        path: "create-slots",
+        element: <CreateSlots />,
+      },
+      {
+        path: "slots-list",
+        element: <SlotsList />,
       },
     ],
   },

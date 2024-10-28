@@ -7,7 +7,6 @@ import { roomCreateValidation } from "../../schemas/validation";
 import { TRoomProps } from "../../types/rooms.type";
 import { useCreateRoomMutation } from "../../redux/features/room/roomApi";
 import { toast } from "sonner";
-import { FiUpload } from "react-icons/fi";
 
 const CreateRoom = () => {
   const {
@@ -21,7 +20,7 @@ const CreateRoom = () => {
 
   const [amenities, setAmenities] = useState<string[]>([]);
   const [amenityInput, setAmenityInput] = useState("");
-  const [createRoom] = useCreateRoomMutation();
+  const [createRoom, { isLoading }] = useCreateRoomMutation();
   const [file, setFile] = useState<File | null>(null);
 
   const onSubmit = async (data: TRoomProps) => {
@@ -57,12 +56,7 @@ const CreateRoom = () => {
     if (e.target.files.length > 0) {
       const selectedFile = e.target.files[0];
       setFile(selectedFile);
-      console.log("File Path:", selectedFile);
     }
-  };
-
-  const handleRemoveFile = () => {
-    setFile(null);
   };
 
   return (
@@ -127,50 +121,34 @@ const CreateRoom = () => {
                 Add
               </button>
             </div>
-
-            {/* File Upload Section */}
             <div className="flex flex-col items-center justify-center w-full mt-4">
               <label
                 htmlFor="image-upload"
-                className={`flex flex-col items-center p-4 ${
-                  file
-                    ? "bg-gray-200 border-gray-300 cursor-default"
-                    : "bg-green-50 border-green-400 hover:bg-green-100"
-                } border border-dashed rounded-lg transition-colors`}
+                className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer hover:bg-blue-600 transition duration-300 ease-in-out"
               >
-                <FiUpload
-                  className={`w-10 h-10 ${
-                    file ? "text-gray-400" : "text-green-400"
-                  } mb-2 p-1`}
-                />
-                <span
-                  className={`text-sm font-medium ${
-                    file ? "text-gray-500" : "text-green-600"
-                  }`}
-                >
-                  {file
-                    ? "File Uploaded: " + file.name
-                    : "Click to upload Image"}
-                </span>
-                <input
-                  id="image-upload"
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
+                Upload Image
               </label>
+              <input
+                id="image-upload"
+                type="file"
+                className="hidden"
+                onChange={handleFileChange}
+              />
+
               {file && (
-                <button
-                  type="button"
-                  onClick={handleRemoveFile}
-                  className="mt-2 px-4 py-2 text-red-500 border border-red-500 rounded-md hover:bg-red-500 hover:text-white transition"
-                >
-                  Change File
-                </button>
+                <div className="mt-4 text-center">
+                  <p className="text-gray-700">File Uploaded: {file.name}</p>
+                  {file.type.startsWith("image/") && (
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt="Preview"
+                      className="mt-2 w-100 object-cover rounded-lg border"
+                    />
+                  )}
+                </div>
               )}
             </div>
           </div>
-          {/* Display Added Amenities */}
           {amenities.length > 0 && (
             <div className="col-span-3 mt-4 mb-3">
               <h4 className="font-semibold mb-2">Amenities:</h4>
@@ -197,7 +175,11 @@ const CreateRoom = () => {
               </ul>
             </div>
           )}
-          <CustomButton text="Create New Room" type="submit" />
+          <CustomButton
+            text={isLoading ? "Loading" : "Create Room"}
+            type="submit"
+            disabled={isLoading}
+          />
         </form>
       </div>
     </div>
