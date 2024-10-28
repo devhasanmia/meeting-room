@@ -54,10 +54,8 @@ const CreateSlots = () => {
       <div className="bg-gray-100 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
           <Divider style={{ fontSize: "25px" }}>Create Slots</Divider>
-
           {isLoading && <div>Loading...</div>}
           {isError && <div>Error fetching rooms</div>}
-
           {!isLoading && !isError && (
             <form onSubmit={handleSubmit(onSubmit)}>
               <label className="block text-sm font-medium text-gray-700">

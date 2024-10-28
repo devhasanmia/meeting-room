@@ -1,4 +1,4 @@
-import { Button, Spin, Table } from "antd";
+import { Button, Table } from "antd";
 import {
   useBookingRoomDeleteMutation,
   useGetAllbookingsQuery,
@@ -6,37 +6,18 @@ import {
 } from "../../redux/features/room/roomApi";
 
 const BookingsList = () => {
-  const { data, isLoading, isError } = useGetAllbookingsQuery(undefined);
+  const { data, isLoading, isError, isFetching } = useGetAllbookingsQuery(undefined);
   const [updateBookingStatus] = useRoomBookingStatusUpdateMutation();
   const [deleteBooking] = useBookingRoomDeleteMutation();
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Spin />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <p className="text-center text-red-500">
-        An error occurred while fetching bookings.
-      </p>
-    );
-  }
-
-  if (!data?.data || data?.data?.length === 0) {
-    return <p className="text-center text-red-500">No bookings found.</p>;
-  }
 
   const handleStatusUpdate = async (id: string, isConfirmed: string) => {
     try {
       await updateBookingStatus({ id, isConfirmed });
     } catch (error) {
-      console.error(`Error updating booking status to ${status}:`, error);
+      console.error(`Error updating booking status to ${isConfirmed}:`, error);
     }
   };
+
   const handleBookingDelete = async (id: string) => {
     try {
       await deleteBooking(id);
@@ -97,15 +78,19 @@ const BookingsList = () => {
     },
   ];
 
-  const dataSource = data.data.map((booking: any) => ({
+  const dataSource = data?.data?.map((booking: any) => ({
     key: booking._id,
-    roomName: booking.room.name,
-    name: booking.user.name,
+    roomName: booking.room?.name || "No Room Name",
+    name: booking.user?.name || "No User Name",
     status: booking.isConfirmed,
-    dateAndTime: `${booking.date} Start Time: ${booking.slots[0].startTime} End Time: ${booking.slots[0].endTime}`,
+    dateAndTime: booking.slots.length
+      ? `${booking.date} Start Time: ${booking.slots[0]?.startTime} End Time: ${booking.slots[0]?.endTime}`
+      : `${booking.date} - No slots available`,
   }));
 
-  return <Table columns={columns} dataSource={dataSource} />;
+  return (
+    <Table columns={columns} dataSource={dataSource} loading={isFetching} />
+  );
 };
 
 export default BookingsList;

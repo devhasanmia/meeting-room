@@ -2,7 +2,7 @@ import { Layout, Menu } from "antd";
 import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
-const { Header, Content,Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
 const items = [
   {
@@ -31,7 +31,9 @@ const items = [
     children: [
       {
         key: "create-slot",
-        label: <NavLink to={"/admin/dashboard/create-slots"}>Create Slots</NavLink>,
+        label: (
+          <NavLink to={"/admin/dashboard/create-slots"}>Create Slots</NavLink>
+        ),
       },
       {
         key: "slots-list",

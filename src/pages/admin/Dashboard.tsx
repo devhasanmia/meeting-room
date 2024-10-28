@@ -1,39 +1,13 @@
-import { Spin } from "antd";
 import { useGetAllbookingsQuery } from "../../redux/features/room/roomApi";
 import { useGetAllUserQuery } from "../../redux/features/auth/authApi";
 import { FaRegUser } from "react-icons/fa";
 import { MdBookmarkAdded } from "react-icons/md";
 import { FaSackDollar } from "react-icons/fa6";
 const Dashboard = () => {
-  const { data, isError, isLoading } = useGetAllbookingsQuery(undefined);
-  const { data: getAllUser, isError: getAllUserError } =
-    useGetAllUserQuery(undefined);
+  const { data } = useGetAllbookingsQuery(undefined);
+  const { data: getAllUser } = useGetAllUserQuery(undefined);
 
-  if (getAllUserError) {
-    return (
-      <p className="text-center text-red-500">
-        Error: Unable to fetch bookings.
-      </p>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <Spin />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <p className="text-center text-red-500">
-        Error: Unable to fetch bookings.
-      </p>
-    );
-  }
-
-  const totalBalance = data.data.reduce((acc: any, curr: any) => {
+  const totalBalance = data?.data?.reduce((acc: any, curr: any) => {
     if (curr.payment && curr.payment === "Paid") {
       return acc + curr.totalAmount;
     }
@@ -59,7 +33,7 @@ const Dashboard = () => {
             Total Booking
           </h3>
           <p className="mt-2 sm:mt-4 text-3xl sm:text-4xl font-bold text-indigo-600 flex gap-2">
-            <MdBookmarkAdded /> {data.data.length}
+            <MdBookmarkAdded /> {data?.data?.length}
           </p>
         </div>
 
@@ -69,7 +43,7 @@ const Dashboard = () => {
             Total Users
           </h3>
           <p className="mt-2 sm:mt-4 text-3xl sm:text-4xl font-bold text-green-500 flex gap-2">
-            <FaRegUser /> {getAllUser.data.length}
+            <FaRegUser /> {getAllUser?.data?.length}
           </p>
         </div>
       </div>

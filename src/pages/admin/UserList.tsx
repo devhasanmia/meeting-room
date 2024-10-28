@@ -6,16 +6,9 @@ import {
 } from "../../redux/features/auth/authApi";
 
 const UserList = () => {
-  const { data: users, isError } = useGetAllUserQuery(undefined);
+  const { data: users, isFetching } = useGetAllUserQuery(undefined);
   const [changeUserRole] = useRoleChangeMutation();
   const [deleteUser] = useDeleteUserMutation();
-  if (isError) {
-    return <div>Error</div>;
-  }
-
-  if (!users || !users.data || users.data.length === 0) {
-    return <div>No User Found</div>;
-  }
 
   const changeRole = async (id: string, role: string) => {
     try {
@@ -86,8 +79,8 @@ const UserList = () => {
 
   return (
     <div>
-        <Divider>Only User List</Divider>
-      <Table columns={columns} dataSource={users.data} />
+      <Divider>Only User List</Divider>
+      <Table columns={columns} dataSource={users?.data} loading={isFetching} />
     </div>
   );
 };

@@ -58,7 +58,6 @@ const BookingSummary = () => {
     }
   }, [booking, navigate]);
 
-  if (!booking) return null;
   const roomId = useAppSelector((state) => state.booking.room);
   const roomBookingR = useAppSelector((state) => state.booking);
   const bookingSlot = useAppSelector((state) => state.booking.slots);
@@ -102,7 +101,7 @@ const BookingSummary = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-lg bg-white">
+    <div className="max-w-lg mx-auto p-6 border rounded-lg shadow-lg bg-white mt-4 mb-4">
       <h2 className="text-2xl font-bold mb-4 text-center text-blue-600">
         Booking Summary
       </h2>

@@ -1,27 +1,28 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import Signup from "../pages/auth/Signup";
-import Login from "../pages/auth/Login";
-import NotFound from "../pages/error/NotFound";
-import MainLayout from "../components/layout/MainLayout";
-import MeetingRooms from "../pages/MeetingRooms";
-import AboutUs from "../pages/AboutUs";
-import ContactUs from "../pages/ContactUs";
-import Home from "../pages/Home";
-import UserLayout from "../components/layout/UserLayout";
-import MyBooking from "../pages/users/MyBooking";
-import MeetingRoomsDetails from "../pages/MeetingRoomsDetails";
-import Booking from "../pages/Booking";
-import BookingSummary from "../pages/BookingSummary";
-import AdminLayout from "../components/layout/AdminLayout";
-import CreateRoom from "../pages/admin/CreateRoom";
-import RoomList from "../pages/admin/RoomList";
-import Dashboard from "../pages/admin/Dashboard";
-import EditRoom from "../pages/admin/EditRoom";
-import BookingsList from "../pages/admin/BookingsList";
-import UserList from "../pages/admin/UserList";
-import CreateSlots from "../pages/admin/CreateSlots";
-import SlotsList from "../pages/admin/SlotsList";
-
+import UpdateSlot from "../pages/admin/slots/UpdateSlot";
+const Signup = lazy(() => import("../pages/auth/Signup"));
+const Login = lazy(() => import("../pages/auth/Login"));
+const NotFound = lazy(() => import("../pages/error/NotFound"));
+const MainLayout = lazy(() => import("../components/layout/MainLayout"));
+const MeetingRooms = lazy(() => import("../pages/MeetingRooms"));
+const AboutUs = lazy(() => import("../pages/AboutUs"));
+const ContactUs = lazy(() => import("../pages/ContactUs"));
+const Home = lazy(() => import("../pages/Home"));
+const UserLayout = lazy(() => import("../components/layout/UserLayout"));
+const MyBooking = lazy(() => import("../pages/users/MyBooking"));
+const MeetingRoomsDetails = lazy(() => import("../pages/MeetingRoomsDetails"));
+const Booking = lazy(() => import("../pages/Booking"));
+const BookingSummary = lazy(() => import("../pages/BookingSummary"));
+const AdminLayout = lazy(() => import("../components/layout/AdminLayout"));
+const CreateRoom = lazy(() => import("../pages/admin/CreateRoom"));
+const RoomList = lazy(() => import("../pages/admin/RoomList"));
+const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
+const EditRoom = lazy(() => import("../pages/admin/EditRoom"));
+const BookingsList = lazy(() => import("../pages/admin/BookingsList"));
+const UserList = lazy(() => import("../pages/admin/UserList"));
+const CreateSlots = lazy(() => import("../pages/admin/CreateSlots"));
+const  SlotsList = lazy(() => import("../pages/admin/slots/SlotsList"));
 const router = createBrowserRouter([
   {
     path: "/user/",
@@ -132,7 +133,11 @@ const router = createBrowserRouter([
       },
       {
         path: "slots-list",
-        element: <SlotsList />,
+        element: <SlotsList/>,
+      },
+      {
+        path: "slots-list/slots-edit/:id",
+        element: <UpdateSlot />,
       },
     ],
   },

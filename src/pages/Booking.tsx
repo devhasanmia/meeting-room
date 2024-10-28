@@ -55,7 +55,7 @@ const Booking = () => {
   };
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center p-5">
+    <div className="bg-gray-100 flex items-center justify-center p-5 h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <select
@@ -64,6 +64,7 @@ const Booking = () => {
               setSelectedDate(e.target.value);
             }}
           >
+            {/* Is Delete == true then  */}
             <option value="">Select Date</option>
             {availableSlots?.data
               ?.filter((item: any) => item.room._id === bookingRoom)
@@ -74,10 +75,11 @@ const Booking = () => {
                   }`}
                   key={item._id}
                   value={item.date}
-                  disabled={item.isBooked}
+                  disabled={item.isBooked && item.isDelete === true}
                 >
                   {item.date}{" "}
                   {item.isBooked ? "Already booked This Date" : "Available"}
+                  {item.isDelete === true ? " (Deleted)" : ""}
                 </option>
               ))}
           </select>
@@ -93,10 +95,13 @@ const Booking = () => {
               <option>Not available slots for the selected date.</option>
             ) : (
               availableSlots?.data
-                ?.filter((item: any) => item.room._id === bookingRoom)
+                ?.filter(
+                  (item: any) =>
+                    item.room._id === bookingRoom
+                )
                 .map((item: any) => (
                   <option
-                    disabled={item.isBooked}
+                    disabled={item.isBooked || item.isDelete === true}
                     key={item._id}
                     value={item._id}
                     className={`p-10 ${
@@ -105,6 +110,7 @@ const Booking = () => {
                   >
                     Start Time: {item.startTime} | End Time: {item.endTime}{" "}
                     {item.isBooked ? "Already Booked" : ""}
+                    {item.isDelete === true? " (Deleted)" : ""}
                   </option>
                 ))
             )}

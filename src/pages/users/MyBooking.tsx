@@ -74,16 +74,16 @@ const MyBooking = () => {
     );
   }
 
-  const dataSource = myBooking.data.map((booking: any) => ({
+  const dataSource = myBooking.data?.map((booking: any) => ({
     key: booking._id,
-    date: booking.date,
-    isConfirmed: booking.isConfirmed,
-    room: booking.room,
-    totalAmount: booking.totalAmount,
-    payment: booking.payment,
-    transactionId: booking.transactionId,
+    date: booking.date || "No Date Provided",              
+    isConfirmed: booking.isConfirmed !== undefined ? booking.isConfirmed : "Unknown Status",
+    room: booking.room?.name || "No Room Information",     
+    totalAmount: booking.totalAmount || "0",                
+    payment: booking.payment || "No Payment Info",          
+    transactionId: booking.transactionId || "No Transaction ID", 
   }));
-
+  
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg mt-6">
       <Divider style={{ fontSize: "35px", fontWeight: "bold" }}>
