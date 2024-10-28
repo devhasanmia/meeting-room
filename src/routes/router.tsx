@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import UpdateSlot from "../pages/admin/slots/UpdateSlot";
+import adminPaths from "./admin.routes";
+import { routeGenerator } from "../utils/routesGenerator";
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const Login = lazy(() => import("../pages/auth/Login"));
 const NotFound = lazy(() => import("../pages/error/NotFound"));
@@ -15,14 +16,7 @@ const MeetingRoomsDetails = lazy(() => import("../pages/MeetingRoomsDetails"));
 const Booking = lazy(() => import("../pages/Booking"));
 const BookingSummary = lazy(() => import("../pages/BookingSummary"));
 const AdminLayout = lazy(() => import("../components/layout/AdminLayout"));
-const CreateRoom = lazy(() => import("../pages/admin/CreateRoom"));
-const RoomList = lazy(() => import("../pages/admin/RoomList"));
-const Dashboard = lazy(() => import("../pages/admin/Dashboard"));
-const EditRoom = lazy(() => import("../pages/admin/EditRoom"));
-const BookingsList = lazy(() => import("../pages/admin/BookingsList"));
-const UserList = lazy(() => import("../pages/admin/UserList"));
-const CreateSlots = lazy(() => import("../pages/admin/CreateSlots"));
-const  SlotsList = lazy(() => import("../pages/admin/slots/SlotsList"));
+
 const router = createBrowserRouter([
   {
     path: "/user/",
@@ -100,46 +94,9 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin/dashboard",
+    path: "/admin",
     element: <AdminLayout />,
-    children: [
-      {
-        path: "",
-        element: <Dashboard />,
-      },
-      {
-        path: "create-room",
-        element: <CreateRoom />,
-      },
-      {
-        path: "room-list",
-        element: <RoomList />,
-      },
-      {
-        path: "room-edit/:id",
-        element: <EditRoom />,
-      },
-      {
-        path: "booking-list",
-        element: <BookingsList />,
-      },
-      {
-        path: "user-list",
-        element: <UserList />,
-      },
-      {
-        path: "create-slots",
-        element: <CreateSlots />,
-      },
-      {
-        path: "slots-list",
-        element: <SlotsList/>,
-      },
-      {
-        path: "slots-list/slots-edit/:id",
-        element: <UpdateSlot />,
-      },
-    ],
+    children: routeGenerator(adminPaths),
   },
 ]);
 

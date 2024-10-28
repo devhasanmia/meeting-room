@@ -1,11 +1,11 @@
-import Signup from "./pages/auth/Signup"
+import AdminLayout from "./components/layout/AdminLayout";
 
 const App = () => {
   return (
-    <div>
-      <Signup/>
-    </div>
-  )
-}
+    <>
+      <AdminLayout />
+    </>
+  );
+};
 
-export default App
+export default App;

@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/ui/Button";
 import { useEffect } from "react";
 
-const EditRoom = () => {
+const UpdateRoom = () => {
     const navigate = useNavigate()
   const { id } = useParams();
   const { data, isLoading, error } = useRoomsByIdQuery(id);
@@ -101,4 +101,4 @@ const EditRoom = () => {
   );
 };
 
-export default EditRoom;
+export default UpdateRoom;
