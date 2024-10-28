@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import CustomLink from "../ui/CustomLink";
-import { HiOutlineMenuAlt1, HiOutlineX } from "react-icons/hi"; // Import X icon for closing the menu
+import { HiOutlineMenuAlt1, HiOutlineX } from "react-icons/hi";
 import { useState } from "react";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage mobile menu visibility
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev); // Toggle the menu open/close state
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (

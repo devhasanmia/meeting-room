@@ -3,7 +3,7 @@ import {
   useBookingsMutation,
   useGetRoomsByIdQuery,
 } from "../redux/features/room/roomApi";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../redux/hooks";
 import { Divider, Tag } from "antd";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import Button from "../components/ui/Button";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 type Slot = {
-  data: { date: any; startTime: any; endTime: any; isBooked: any; };
+  data: { date: any; startTime: any; endTime: any; isBooked: any };
   _id: string;
   room: string;
   date: string;
@@ -21,7 +21,14 @@ type Slot = {
 };
 
 type Room = {
-  data: { name: any; roomNo: any; floorNo: any; capacity: any; pricePerSlot: any; amenities: any; };
+  data: {
+    name: any;
+    roomNo: any;
+    floorNo: any;
+    capacity: any;
+    pricePerSlot: any;
+    amenities: any;
+  };
   _id: string;
   name: string;
   roomNo: number;

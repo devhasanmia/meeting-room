@@ -7,7 +7,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const items = [
   {
     key: "dashboard",
-    label: "Dashboard",
+    label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
   },
   {
     key: "room-management",
@@ -21,7 +21,7 @@ const items = [
       },
       {
         key: "room-list",
-        label: "Room List",
+        label: <NavLink to={"/admin/dashboard/room-list"}>Room List</NavLink>,
       },
     ],
   },
@@ -40,8 +40,12 @@ const items = [
     ],
   },
   {
+    key: "user-list",
+    label: "User List",
+  },
+  {
     key: "booking-list",
-    label: "Booking List",
+    label: <NavLink to={"/admin/dashboard/booking-list"}>Booking List</NavLink>,
   },
 ];
 
@@ -83,9 +87,6 @@ const AdminLayout = () => {
             <Outlet />
           </div>
         </Content>
-        <Footer className="text-center">
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
       </Layout>
     </Layout>
   );

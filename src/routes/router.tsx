@@ -14,6 +14,10 @@ import Booking from "../pages/Booking";
 import BookingSummary from "../pages/BookingSummary";
 import AdminLayout from "../components/layout/AdminLayout";
 import CreateRoom from "../pages/admin/CreateRoom";
+import RoomList from "../pages/admin/RoomList";
+import Dashboard from "../pages/admin/Dashboard";
+import EditRoom from "../pages/admin/EditRoom";
+import BookingsList from "../pages/admin/BookingsList";
 
 const router = createBrowserRouter([
   {
@@ -44,11 +48,11 @@ const router = createBrowserRouter([
       },
       {
         path: "room-booking",
-        element: <Booking/>
+        element: <Booking />,
       },
       {
         path: "room-booking/checkout",
-        element: <BookingSummary/>
+        element: <BookingSummary />,
       },
       {
         path: "about-us",
@@ -92,15 +96,31 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path:"/admin/dashboard",
-    element: <AdminLayout/>,
+    path: "/admin/dashboard",
+    element: <AdminLayout />,
     children: [
       {
-        path:"create-room",
-        element: <CreateRoom/>
-      }
-    ]
-  }
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        path: "create-room",
+        element: <CreateRoom />,
+      },
+      {
+        path: "room-list",
+        element: <RoomList />,
+      },
+      {
+        path: "room-edit/:id",
+        element: <EditRoom />,
+      },
+      {
+        path: "booking-list",
+        element: <BookingsList />,
+      },
+    ],
+  },
 ]);
 
 export default router;

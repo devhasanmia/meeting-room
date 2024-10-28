@@ -7,12 +7,12 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidation } from "../../schemas/validation";
 import { Divider } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const Signup = () => {
   const [signup, { isLoading, data: signupData }] = useSignupMutation();
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -26,6 +26,7 @@ const Signup = () => {
     try {
       await signup(formData).unwrap();
       reset();
+      navigate(`/login`, { replace: true })
     } catch (error: any) {
       toast.error(error.data.errorMessages[0].message);
     }

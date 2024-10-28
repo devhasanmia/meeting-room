@@ -23,12 +23,28 @@ const roomApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getRoomByIdAndDelete: builder.mutation({
+      query: (id) => ({
+        url: `/rooms/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    getRoomByIdAndUpdate: builder.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `/rooms/${id}`,
+          method: "PUT",
+          body: data,
+        };
+      },
+    }),
     availability: builder.query({
       query: () => ({
         url: `/slots/availability`,
         method: "GET",
       }),
     }),
+
     availabilitys: builder.query({
       query: ({ date, room }) => {
         const params = new URLSearchParams();
@@ -63,6 +79,33 @@ const roomApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+
+    getAllbookings: builder.query({
+      query: () => ({
+        url: `/bookings`,
+        method: "GET",
+      }),
+    }),
+    roomBookingStatusUpdate: builder.mutation({
+      query: ({ id, isConfirmed }) => {
+        console.log({ ID: id, IsConfirmed: isConfirmed });
+        return {
+          url: `/bookings/${id}`,
+          method: "PUT",
+          body: { isConfirmed },
+        };
+      },
+    }),
+    bookingRoomDelete: builder.mutation({
+      query: (id) => {
+        console.log(id)
+        return {
+          url: `/bookings/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
+
     myBookings: builder.query({
       query: () => ({
         url: `/my-bookings`,
@@ -82,4 +125,9 @@ export const {
   useAvailabilityByIdQuery,
   useRoomsByIdQuery,
   useCreateRoomMutation,
+  useGetAllbookingsQuery,
+  useGetRoomByIdAndUpdateMutation,
+  useGetRoomByIdAndDeleteMutation,
+  useRoomBookingStatusUpdateMutation,
+  useBookingRoomDeleteMutation
 } = roomApi;

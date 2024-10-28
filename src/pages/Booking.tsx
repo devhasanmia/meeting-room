@@ -22,8 +22,6 @@ const Booking = () => {
     }
   }, [booking, navigate]);
 
-  if (!booking) return null;
-
   const { register, handleSubmit, reset, watch } = useForm<TBookingData>();
   const [selectedDate, setSelectedDate] = useState("");
   const {
@@ -115,12 +113,12 @@ const Booking = () => {
             text="Checkout"
             type="submit"
             disabled={
-              !selectedDate || 
-              !bookingRoom || 
-              !booking || 
-              !watch("slotId") || 
-              isLoading || 
-              isError 
+              !selectedDate ||
+              !bookingRoom ||
+              !booking ||
+              !watch("slotId") ||
+              isLoading ||
+              isError
             }
           />
         </form>
