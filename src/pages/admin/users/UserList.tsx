@@ -1,9 +1,7 @@
 import { Button, Divider, Table } from "antd";
-import {
-  useDeleteUserMutation,
-  useGetAllUserQuery,
-  useRoleChangeMutation,
-} from "../../redux/features/auth/authApi";
+import { useDeleteUserMutation, useGetAllUserQuery, useRoleChangeMutation } from "../../../redux/features/auth/authApi";
+import { toast } from "sonner";
+
 
 const UserList = () => {
   const { data: users, isFetching } = useGetAllUserQuery(undefined);
@@ -12,17 +10,19 @@ const UserList = () => {
 
   const changeRole = async (id: string, role: string) => {
     try {
-      await changeUserRole({ id, role });
+      await changeUserRole({ id, role }).unwrap();
+      toast.success("Role changed successfully");
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to change role");
     }
   };
 
   const handleDelete = async (id: string) => {
     try {
       await deleteUser(id);
+      toast.success("User deleted successfully");
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to delete user");
     }
   };
 

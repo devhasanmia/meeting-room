@@ -1,31 +1,12 @@
 import { Divider } from "antd";
-import Input from "../../components/ui/Input";
-import { useGetRoomsQuery } from "../../redux/features/room/roomApi";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useCreateSlotsMutation } from "../../redux/features/slots/slotsApi";
 import { toast } from "sonner";
-
-type Tslot = {
-  room: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  isBooked?: boolean;
-};
-
-const slotValidationSchema = z.object({
-  room: z.string(),
-  date: z
-    .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
-  startTime: z
-    .string()
-    .regex(/^\d{2}:\d{2}$/, "Invalid start time format (HH:MM)"),
-  endTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid end time format (HH:MM)"),
-  isBooked: z.boolean().optional(),
-});
+import { useCreateSlotsMutation } from "../../../redux/features/slots/slotsApi";
+import { useGetRoomsQuery } from "../../../redux/features/room/roomApi";
+import Input from "../../../components/ui/Input";
+import { slotValidationSchema } from "../../../schemas/validation";
+import { Tslot } from "../../../types/slots.type";
 
 const CreateSlots = () => {
   const { data: getRooms, isLoading, isError } = useGetRoomsQuery(undefined);

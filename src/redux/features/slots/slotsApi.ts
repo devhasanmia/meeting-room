@@ -9,6 +9,7 @@ const slotsApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Slots"],
     }),
     // Slots Create End
     // Slots Get All Start
@@ -17,6 +18,7 @@ const slotsApi = baseApi.injectEndpoints({
         url: "/slots/availability",
         method: "GET",
       }),
+      providesTags: ["Slots"],
     }),
     // Slots Get End
     // Slots Get by Id Start
@@ -25,6 +27,7 @@ const slotsApi = baseApi.injectEndpoints({
         url: `/slots/availability/${id}`,
         method: "GET",
       }),
+      providesTags: ["Slots"],
     }),
     // Slots Get by Id End
     // Slots Delete Start
@@ -33,6 +36,7 @@ const slotsApi = baseApi.injectEndpoints({
         url: `/slots/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Slots"],
     }),
     // Slots Delete End
     // Slots Update Start
@@ -42,6 +46,7 @@ const slotsApi = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["Slots"],
     }),
     // Slots Update End
   }),
@@ -52,5 +57,5 @@ export const {
   useGetSlotsQuery,
   useUpdateSlotsMutation,
   useDeleteSlotsMutation,
-  useGetSlotsByIdQuery
+  useGetSlotsByIdQuery,
 } = slotsApi;

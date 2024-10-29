@@ -4,18 +4,16 @@ import {
   useGetSlotsQuery,
 } from "../../../redux/features/slots/slotsApi";
 import { Link } from "react-router-dom";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
 const SlotsList = () => {
-  const [deleteSlots, { isSuccess }] = useDeleteSlotsMutation();
+  const [deleteSlots] = useDeleteSlotsMutation();
   const handleSlotsDelete = async (id: string) => {
     try {
-      const res = await deleteSlots(id).unwrap();
-      if (isSuccess) {
-        console.log(res.message);
-      }
+      await deleteSlots(id);
+      toast.success("Slot deleted successfully");
     } catch (error) {
-      console.log("error:", error);
+      toast.error("Slot deletion failed");
     }
   };
   const columns = [

@@ -12,5 +12,7 @@ export const baseApi = createApi({
       }
     },
   }),
+  // automated-refetching
+  tagTypes: ['User', 'Room', "Slots", "Booking", "BookingSlot"],
   endpoints: () => ({}),
 });

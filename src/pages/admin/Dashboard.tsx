@@ -1,8 +1,8 @@
-import { useGetAllbookingsQuery } from "../../redux/features/room/roomApi";
 import { useGetAllUserQuery } from "../../redux/features/auth/authApi";
 import { FaRegUser } from "react-icons/fa";
 import { MdBookmarkAdded } from "react-icons/md";
 import { FaSackDollar } from "react-icons/fa6";
+import { useGetAllbookingsQuery } from "../../redux/features/booking/bookingApi";
 const Dashboard = () => {
   const { data } = useGetAllbookingsQuery(undefined);
   const { data: getAllUser } = useGetAllUserQuery(undefined);

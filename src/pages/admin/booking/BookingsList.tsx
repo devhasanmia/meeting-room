@@ -1,28 +1,31 @@
 import { Button, Divider, Table } from "antd";
+import { toast } from "sonner";
 import {
-  useBookingRoomDeleteMutation,
+  useBookingDeleteMutation,
+  useBookingStatusUpdateMutation,
   useGetAllbookingsQuery,
-  useRoomBookingStatusUpdateMutation,
-} from "../../../redux/features/room/roomApi";
+} from "../../../redux/features/booking/bookingApi";
 
 const BookingsList = () => {
-  const { data, isLoading, isError, isFetching } = useGetAllbookingsQuery(undefined);
-  const [updateBookingStatus] = useRoomBookingStatusUpdateMutation();
-  const [deleteBooking] = useBookingRoomDeleteMutation();
+  const { data, isFetching } = useGetAllbookingsQuery(undefined);
+  const [updateBookingStatus] = useBookingStatusUpdateMutation();
+  const [deleteBooking] = useBookingDeleteMutation();
 
   const handleStatusUpdate = async (id: string, isConfirmed: string) => {
     try {
       await updateBookingStatus({ id, isConfirmed });
+      toast.success("Booking status updated successfully");
     } catch (error) {
-      console.error(`Error updating booking status to ${isConfirmed}:`, error);
+      toast.error("Failed to update booking status");
     }
   };
 
   const handleBookingDelete = async (id: string) => {
     try {
       await deleteBooking(id);
+      toast.success("Booking deleted successfully");
     } catch (error) {
-      console.error(`Error deleting booking with id ${id}:`, error);
+      toast.error("Failed to delete booking");
     }
   };
 
@@ -89,10 +92,10 @@ const BookingsList = () => {
   }));
 
   return (
-   <div>
-    <Divider>Booking List</Divider>
-     <Table columns={columns} dataSource={dataSource} loading={isFetching} />
-   </div>
+    <div>
+      <Divider>Booking List</Divider>
+      <Table columns={columns} dataSource={dataSource} loading={isFetching} />
+    </div>
   );
 };
 

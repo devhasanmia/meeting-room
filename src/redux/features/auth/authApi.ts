@@ -1,5 +1,4 @@
 import { baseApi } from "../../api/baseApi";
-
 const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Signup Start
@@ -9,6 +8,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
     // Signup End
     // Login Start
@@ -18,6 +18,7 @@ const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
     // Login End
 
@@ -27,6 +28,7 @@ const authApi = baseApi.injectEndpoints({
         url: "/auth/all",
         method: "GET",
       }),
+      providesTags: ["User"],
     }),
     // Get All User End
     // Role Change Start
@@ -38,6 +40,7 @@ const authApi = baseApi.injectEndpoints({
           body: { role },
         };
       },
+      invalidatesTags: ["User"],
     }),
     deleteUser: builder.mutation({
       query: (id) => {
@@ -46,6 +49,7 @@ const authApi = baseApi.injectEndpoints({
           method: "DELETE",
         };
       },
+      invalidatesTags: ["User"],
     }),
   }),
 });
@@ -55,5 +59,5 @@ export const {
   useLoginMutation,
   useGetAllUserQuery,
   useRoleChangeMutation,
-  useDeleteUserMutation
+  useDeleteUserMutation,
 } = authApi;

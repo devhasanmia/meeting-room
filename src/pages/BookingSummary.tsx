@@ -1,6 +1,5 @@
 import {
   useAvailabilityByIdQuery,
-  useBookingsMutation,
   useGetRoomsByIdQuery,
 } from "../redux/features/room/roomApi";
 import { useAppSelector } from "../redux/hooks";
@@ -9,35 +8,7 @@ import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
-type Slot = {
-  data: { date: string; startTime: string; endTime: string; isBooked: boolean };
-  _id: string;
-  room: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  isBooked: boolean;
-};
-
-type Room = {
-  data: {
-    name: string;
-    roomNo: number;
-    floorNo: number;
-    capacity: number;
-    pricePerSlot: number;
-    amenities: string[];
-  };
-  _id: string;
-  name: string;
-  roomNo: number;
-  floorNo: number;
-  capacity: number;
-  pricePerSlot: number;
-  amenities: string[];
-};
-
+import { useCreateBookingsMutation } from "../redux/features/booking/bookingApi";
 const BookingSummary = () => {
   const booking = useAppSelector(
     (state) => state.booking.room && state.booking.user
@@ -53,7 +24,7 @@ const BookingSummary = () => {
   const roomId = useAppSelector((state) => state.booking.room);
   const bookingSlot = useAppSelector((state) => state.booking.slots);
   const roomBookingR = useAppSelector((state) => state.booking);
-  const [roomBooking, { isLoading }] = useBookingsMutation();
+  const [roomBooking, { isLoading }] = useCreateBookingsMutation();
 
   const { data: slotsDetails } = useAvailabilityByIdQuery(bookingSlot?.[0]);
   const {

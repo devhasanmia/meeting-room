@@ -1,11 +1,8 @@
-import {
-  useGetRoomByIdAndDeleteMutation,
-  useGetRoomsQuery,
-} from "../../redux/features/room/roomApi";
 import { MdDelete } from "react-icons/md";
 import { Spin, Table, Divider, Modal } from "antd";
 import { Link } from "react-router-dom";
 import { TbEditCircle } from "react-icons/tb";
+import { useGetRoomByIdAndDeleteMutation, useGetRoomsQuery } from "../../../redux/features/room/roomApi";
 
 const columns = (handleDelete: (id: string) => void) => [
   {
@@ -108,6 +105,7 @@ const RoomList = () => {
             columns={columns(handleDelete)}
             dataSource={dataSource}
             scroll={{ x: true }}
+            loading={isLoading}
           />
         </div>
       </div>

@@ -1,17 +1,19 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+
+import { useEffect } from "react";
+import { toast } from "sonner";
 import {
   useGetRoomByIdAndUpdateMutation,
-  useRoomsByIdQuery,
-} from "../../redux/features/room/roomApi";
-import Input from "../../components/ui/Input";
-import { useForm } from "react-hook-form";
-import Button from "../../components/ui/Button";
-import { useEffect } from "react";
+  useGetRoomsByIdQuery,
+} from "../../../redux/features/room/roomApi";
+import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
 
 const UpdateRoom = () => {
-    const navigate = useNavigate()
   const { id } = useParams();
-  const { data, isLoading, error } = useRoomsByIdQuery(id);
+  const { data, isLoading, error } = useGetRoomsByIdQuery(id);
   const {
     register,
     handleSubmit,
@@ -26,7 +28,8 @@ const UpdateRoom = () => {
       pricePerSlot: 0,
     },
   });
-  const [updateRoom, {isLoading: updateRoomLoading}] = useGetRoomByIdAndUpdateMutation();
+  const [updateRoom, { isLoading: updateRoomLoading }] =
+    useGetRoomByIdAndUpdateMutation();
 
   useEffect(() => {
     if (data) {
@@ -41,8 +44,14 @@ const UpdateRoom = () => {
   }, [data, reset]);
 
   const onSubmit = async (formData: any) => {
-    await updateRoom({ id, data:formData });
-    navigate(`/admin/dashboard/room-list`, { replace: true });
+    try {
+      await updateRoom({ id, data: formData });
+      toast.success("Room updated successfully!");
+      reset();
+      window.history.back();
+    } catch (error) {
+      toast.error("Failed to update room");
+    }
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -94,7 +103,10 @@ const UpdateRoom = () => {
               errors={errors}
             />
           </div>
-          <Button type="submit" text={updateRoomLoading? "Lodding" : "Update"} />
+          <Button
+            type="submit"
+            text={updateRoomLoading ? "Lodding" : "Update"}
+          />
         </form>
       </div>
     </div>

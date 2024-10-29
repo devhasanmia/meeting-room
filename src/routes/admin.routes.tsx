@@ -1,12 +1,12 @@
 import Dashboard from "../pages/admin/Dashboard";
 import CreateRoom from "../pages/admin/CreateRoom";
-import RoomList from "../pages/admin/RoomList";
 import BookingsList from "../pages/admin/booking/BookingsList";
-import CreateSlots from "../pages/admin/CreateSlots";
 import SlotsList from "../pages/admin/slots/SlotsList";
-import UserList from "../pages/admin/UserList";
-import UpdateRoom from "../pages/admin/UpdateRoom";
 import UpdateSlot from "../pages/admin/slots/UpdateSlot";
+import UserList from "../pages/admin/users/UserList";
+import CreateSlots from "../pages/admin/slots/CreateSlots";
+import RoomList from "../pages/admin/room/RoomList";
+import UpdateRoom from "../pages/admin/room/UpdateRoom";
 
 const adminPaths = [
   {

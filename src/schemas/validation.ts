@@ -102,3 +102,16 @@ export const roomCreateValidation = z.object({
     })
     .positive("Price per slot must be a positive number"),
 });
+
+
+export const slotValidationSchema = z.object({
+  room: z.string(),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format (YYYY-MM-DD)"),
+  startTime: z
+    .string()
+    .regex(/^\d{2}:\d{2}$/, "Invalid start time format (HH:MM)"),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid end time format (HH:MM)"),
+  isBooked: z.boolean().optional(),
+});

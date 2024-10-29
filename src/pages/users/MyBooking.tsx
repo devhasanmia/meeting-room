@@ -1,6 +1,6 @@
 import { Divider, Spin, Table } from "antd";
-import { useMyBookingsQuery } from "../../redux/features/room/roomApi";
 import { TbError404 } from "react-icons/tb";
+import { useMyBookingsQuery } from "../../redux/features/booking/bookingApi";
 
 const columns = [
   {
@@ -40,9 +40,7 @@ const columns = [
 const MyBooking = () => {
   const {
     data: myBooking,
-    isError,
     isLoading,
-    error,
   } = useMyBookingsQuery(undefined);
 
   if (isLoading) {
@@ -50,15 +48,6 @@ const MyBooking = () => {
       <div className="flex flex-col items-center justify-center">
         <Spin />
       </div>
-    );
-  }
-
-  if (isError) {
-    console.log(error);
-    return (
-      <p className="text-center text-red-500">
-        Error: Unable to fetch bookings.
-      </p>
     );
   }
 

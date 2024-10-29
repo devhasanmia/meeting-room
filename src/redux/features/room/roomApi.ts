@@ -2,33 +2,35 @@ import { baseApi } from "../../api/baseApi";
 
 const roomApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // All Room Get Start
-    getRooms: builder.query({
-      query: () => ({
-        url: "/rooms",
-        method: "GET",
-      }),
-    }),
-    // All Room Get End
+    // Create new Room Start
     createRoom: builder.mutation({
       query: (data) => ({
         url: "/rooms",
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Room"],
     }),
+    // Create new Room End
+    // All Room Get Start
+    getRooms: builder.query({
+      query: () => ({
+        url: "/rooms",
+        method: "GET",
+      }),
+      providesTags: ["Room"],
+    }),
+    // All Room Get End
+    // Get Room By Id Start
     getRoomsById: builder.query({
       query: (id) => ({
         url: `/rooms/${id}`,
         method: "GET",
       }),
+      providesTags: ["Room"],
     }),
-    getRoomByIdAndDelete: builder.mutation({
-      query: (id) => ({
-        url: `/rooms/${id}`,
-        method: "DELETE",
-      }),
-    }),
+    // Get Room By Id end
+    // Get Room By Id and Update Start
     getRoomByIdAndUpdate: builder.mutation({
       query: ({ id, data }) => {
         return {
@@ -37,14 +39,28 @@ const roomApi = baseApi.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: ["Room"],
     }),
+    // Get Room By Id and Update End
+    // Get Room By Id and Delete Start
+    getRoomByIdAndDelete: builder.mutation({
+      query: (id) => ({
+        url: `/rooms/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Room"],
+    }),
+    // Get Room By Id and Delete End
+    // Get Availability Check Start
     availability: builder.query({
       query: () => ({
         url: `/slots/availability`,
         method: "GET",
       }),
+      providesTags: ["Room"],
     }),
-
+    // Get Availability Check End
+    
     availabilitys: builder.query({
       query: ({ date, room }) => {
         const params = new URLSearchParams();
@@ -55,6 +71,7 @@ const roomApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["Room"],
     }),
     availabilityById: builder.query({
       query: (id) => {
@@ -63,70 +80,25 @@ const roomApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: ["Room"],
     }),
-    roomsById: builder.query({
-      query: (id) => {
-        return {
-          url: `/rooms/${id}`,
-          method: "GET",
-        };
-      },
-    }),
-    bookings: builder.mutation({
-      query: (data) => ({
-        url: `/bookings`,
-        method: "POST",
-        body: data,
-      }),
-    }),
-
-    getAllbookings: builder.query({
-      query: () => ({
-        url: `/bookings`,
+    getRoomById: builder.query({
+      query: (id) => ({
+        url: `/rooms/${id}`,
         method: "GET",
       }),
-    }),
-    roomBookingStatusUpdate: builder.mutation({
-      query: ({ id, isConfirmed }) => {
-        return {
-          url: `/bookings/${id}`,
-          method: "PUT",
-          body: { isConfirmed },
-        };
-      },
-    }),
-    bookingRoomDelete: builder.mutation({
-      query: (id) => {
-        console.log(id)
-        return {
-          url: `/bookings/${id}`,
-          method: "DELETE",
-        };
-      },
-    }),
-
-    myBookings: builder.query({
-      query: () => ({
-        url: `/my-bookings`,
-        method: "GET",
-      }),
+      providesTags: ["Room"],
     }),
   }),
 });
 
 export const {
-  useMyBookingsQuery,
   useGetRoomsQuery,
   useGetRoomsByIdQuery,
   useAvailabilityQuery,
   useAvailabilitysQuery,
-  useBookingsMutation,
   useAvailabilityByIdQuery,
-  useRoomsByIdQuery,
   useCreateRoomMutation,
-  useGetAllbookingsQuery,
   useGetRoomByIdAndUpdateMutation,
   useGetRoomByIdAndDeleteMutation,
-  useRoomBookingStatusUpdateMutation,
-  useBookingRoomDeleteMutation
 } = roomApi;
