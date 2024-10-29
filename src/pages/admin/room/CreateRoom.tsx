@@ -13,6 +13,7 @@ const CreateRoom = () => {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm<TRoomProps>({
     resolver: zodResolver(roomCreateValidation),
@@ -24,25 +25,38 @@ const CreateRoom = () => {
   const [file, setFile] = useState<File | null>(null);
 
   const onSubmit = async (data: TRoomProps) => {
-    let formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("roomNo", data.roomNo.toString());
-    formData.append("floorNo", data.floorNo.toString());
-    formData.append("capacity", data.capacity.toString());
-    formData.append("pricePerSlot", data.pricePerSlot.toString());
+    try {
+      let formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("roomNo", data.roomNo.toString());
+      formData.append("floorNo", data.floorNo.toString());
+      formData.append("capacity", data.capacity.toString());
+      formData.append("pricePerSlot", data.pricePerSlot.toString());
 
-    amenities.forEach((amenity) => {
-      formData.append("amenities[]", amenity);
-    });
-    if (file) {
-      formData.append("file", file);
+      amenities.forEach((amenity) => {
+        formData.append("amenities[]", amenity);
+      });
+
+      if (file) {
+        formData.append("file", file);
+      }
+
+      await createRoom(formData).unwrap();
+      console.log(formData)
+      toast.success("Room Created Successfully");
+      reset();
+      setAmenities([]);
+      setFile(null);
+    } catch (error: any) {
+      if (error.data && error.data.errorMessages) {
+        error.data.errorMessages.forEach((err: { path: string; message: string }) => {
+          setError(err.path as keyof TRoomProps, { type: "server", message: err.message });
+        });
+        toast.error("Validation Error. Please check your input.");
+      } else {
+        toast.error("Failed to create room.");
+      }
     }
-    await createRoom(formData);
-
-    setAmenities([]);
-    setFile(null);
-    toast.success("Room Created Successfully");
-    reset();
   };
 
   const handleAddAmenity = () => {
@@ -52,10 +66,14 @@ const CreateRoom = () => {
     }
   };
 
-  const handleFileChange = (e: any) => {
-    if (e.target.files.length > 0) {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      setFile(selectedFile);
+      if (selectedFile.type.startsWith("image/")) {
+        setFile(selectedFile);
+      } else {
+        toast.error("Please upload a valid image file.");
+      }
     }
   };
 
@@ -116,7 +134,10 @@ const CreateRoom = () => {
               <button
                 type="button"
                 onClick={handleAddAmenity}
-                className="px-4 p-3 text-white bg-green-500 border border-green-400 rounded-r-md shadow-sm focus:outline-none hover:bg-green-600 transition"
+                disabled={!amenityInput.trim()}
+                className={`px-4 p-3 text-white bg-green-500 border border-green-400 rounded-r-md shadow-sm focus:outline-none ${
+                  !amenityInput.trim() ? "opacity-50 cursor-not-allowed" : "hover:bg-green-600 transition"
+                }`}
               >
                 Add
               </button>
@@ -150,6 +171,7 @@ const CreateRoom = () => {
               )}
             </div>
           </div>
+
           {amenities.length > 0 && (
             <div className="col-span-3 mt-4 mb-3">
               <h4 className="font-semibold mb-2">Amenities:</h4>
@@ -163,9 +185,7 @@ const CreateRoom = () => {
                     <button
                       type="button"
                       onClick={() =>
-                        setAmenities((prev) =>
-                          prev.filter((_, i) => i !== index)
-                        )
+                        setAmenities((prev) => prev.filter((_, i) => i !== index))
                       }
                       className="text-red-500 hover:text-red-700 transition-colors focus:outline-none"
                     >
@@ -176,6 +196,7 @@ const CreateRoom = () => {
               </ul>
             </div>
           )}
+
           <Button
             text={isLoading ? "Loading" : "Create Room"}
             type="submit"
