@@ -66,7 +66,6 @@ const RoomList = () => {
 
   const {
     data: roomList,
-    isError,
     isLoading: isRoomsLoading,
   } = useGetRoomsQuery(undefined);
 
@@ -78,15 +77,8 @@ const RoomList = () => {
     );
   }
 
-  if (isError) {
-    return (
-      <p className="text-center text-red-500">
-        Error: Unable to fetch room list.
-      </p>
-    );
-  }
 
-  const dataSource = roomList.data.map((room: any) => ({
+  const dataSource = roomList?.data?.map((room: any) => ({
     key: room._id,
     name: room.name,
     roomNo: room.roomNo,
