@@ -20,32 +20,11 @@ const MeetingRoomsDetails = () => {
   }
 
   const { _id } = useParams();
-  const {
-    data: roomsDetails,
-    isLoading,
-    isError,
-    error,
-  } = useGetRoomsByIdQuery(_id);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Error: {error?.data?.message || "Something went wrong."}
-      </div>
-    );
-  }
+  const { data: roomsDetails } = useGetRoomsByIdQuery(_id);
 
   if (!roomsDetails?.data) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center ">
         No room details found.
       </div>
     );
@@ -53,7 +32,6 @@ const MeetingRoomsDetails = () => {
 
   const { name, capacity, pricePerSlot, floorNo, roomNo, amenities, image } =
     roomsDetails.data;
-
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-3xl font-bold text-center mb-8">{name}</h2>
@@ -81,7 +59,7 @@ const MeetingRoomsDetails = () => {
               {amenities.join(", ")}
             </div>
           </div>
-          <Link to={"/room-booking"}>
+          <Link to={"/user/room-booking"}>
             <button
               onClick={() => {
                 dispatch(

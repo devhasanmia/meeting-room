@@ -47,15 +47,15 @@ const Booking = () => {
           room: bookingRoom,
         })
       );
-      navigate("/room-booking/checkout", { replace: true });
+      navigate("/user/room-booking/checkout", { replace: true });
       reset();
     } catch (error: any) {
-      toast.error(error.data?.message || "An error occurred during booking.");
+      toast.error(error?.data?.message || "An error occurred during booking.");
     }
   };
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center p-5 h-screen">
+    <div className=" flex items-center justify-center p-5 min-h-screen">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <select
@@ -64,7 +64,6 @@ const Booking = () => {
               setSelectedDate(e.target.value);
             }}
           >
-            {/* Is Delete == true then  */}
             <option value="">Select Date</option>
             {availableSlots?.data
               ?.filter((item: any) => item.room._id === bookingRoom)

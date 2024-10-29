@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 type Slot = {
-  data: { date: any; startTime: any; endTime: any; isBooked: any };
+  data: { date: string; startTime: string; endTime: string; isBooked: boolean };
   _id: string;
   room: string;
   date: string;
@@ -22,12 +22,12 @@ type Slot = {
 
 type Room = {
   data: {
-    name: any;
-    roomNo: any;
-    floorNo: any;
-    capacity: any;
-    pricePerSlot: any;
-    amenities: any;
+    name: string;
+    roomNo: number;
+    floorNo: number;
+    capacity: number;
+    pricePerSlot: number;
+    amenities: string[];
   };
   _id: string;
   name: string;
@@ -36,14 +36,6 @@ type Room = {
   capacity: number;
   pricePerSlot: number;
   amenities: string[];
-};
-
-type SlotsDetailsData = {
-  data: Slot;
-};
-
-type RoomDetailsData = {
-  data: Room;
 };
 
 const BookingSummary = () => {
@@ -59,28 +51,27 @@ const BookingSummary = () => {
   }, [booking, navigate]);
 
   const roomId = useAppSelector((state) => state.booking.room);
-  const roomBookingR = useAppSelector((state) => state.booking);
   const bookingSlot = useAppSelector((state) => state.booking.slots);
+  const roomBookingR = useAppSelector((state) => state.booking);
   const [roomBooking, { isLoading }] = useBookingsMutation();
+
+  const { data: slotsDetails } = useAvailabilityByIdQuery(bookingSlot?.[0]);
   const {
-    data: slotsDetails,
-    isLoading: slotsLoading,
-    error: slotsError,
-  } = useAvailabilityByIdQuery<SlotsDetailsData>(bookingSlot[0]);
+    date = "",
+    startTime = "00:00",
+    endTime = "00:00",
+    isBooked = false,
+  } = slotsDetails?.data || {};
 
+  const { data: roomsDetails } = useGetRoomsByIdQuery(roomId);
   const {
-    data: roomsDetails,
-    isLoading: roomLoading,
-    error: roomError,
-  } = useGetRoomsByIdQuery<RoomDetailsData>(roomId);
-
-  if (slotsLoading || roomLoading) return <p>Loading...</p>;
-  if (slotsError || roomError || !slotsDetails || !roomsDetails)
-    return <p>Data not found or an error occurred</p>;
-
-  const { date, startTime, endTime, isBooked } = slotsDetails.data;
-  const { name, roomNo, floorNo, capacity, pricePerSlot, amenities } =
-    roomsDetails?.data;
+    name = "",
+    roomNo = 0,
+    floorNo = 0,
+    capacity = 0,
+    pricePerSlot = 0,
+    amenities = [],
+  } = roomsDetails?.data || {};
 
   const [startHour, startMinute] = startTime.split(":").map(Number);
   const [endHour, endMinute] = endTime.split(":").map(Number);
@@ -167,7 +158,7 @@ const BookingSummary = () => {
         <Button
           onClick={handleSubmit}
           text={
-            isLoading ? "Lodding" : "Proceed to Payment And Confirm Booking"
+            isLoading ? "Loading" : "Proceed to Payment And Confirm Booking"
           }
         />
       </div>

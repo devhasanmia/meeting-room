@@ -16,7 +16,7 @@ const columns = [
   },
   {
     title: "Room",
-    dataIndex: ["room", "name"],
+    dataIndex: "room",
     key: "room",
   },
   {
@@ -76,14 +76,17 @@ const MyBooking = () => {
 
   const dataSource = myBooking.data?.map((booking: any) => ({
     key: booking._id,
-    date: booking.date || "No Date Provided",              
-    isConfirmed: booking.isConfirmed !== undefined ? booking.isConfirmed : "Unknown Status",
-    room: booking.room?.name || "No Room Information",     
-    totalAmount: booking.totalAmount || "0",                
-    payment: booking.payment || "No Payment Info",          
-    transactionId: booking.transactionId || "No Transaction ID", 
+    date: booking.date || "No Date Provided",
+    isConfirmed:
+      booking.isConfirmed !== undefined
+        ? booking.isConfirmed
+        : "Unknown Status",
+    room: booking?.room?.name || "No Room Information",
+    totalAmount: booking.totalAmount || "0",
+    payment: booking.payment || "No Payment Info",
+    transactionId: booking.transactionId || "No Transaction ID",
   }));
-  
+
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg mt-6">
       <Divider style={{ fontSize: "35px", fontWeight: "bold" }}>
