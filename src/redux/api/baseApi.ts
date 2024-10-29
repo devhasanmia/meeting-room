@@ -6,13 +6,13 @@ export const baseApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://meeting-room-booking-system-one.vercel.app/api",
     prepareHeaders(headers, { getState }) {
-      const token = (getState() as RootState).auth.token;
+      const token = (getState() as RootState)?.auth?.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
     },
   }),
   // automated-refetching
-  tagTypes: ['User', 'Room', "Slots", "Booking",],
+  tagTypes: ["User", "Room", "Slots", "Booking"],
   endpoints: () => ({}),
 });

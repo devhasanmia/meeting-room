@@ -9,13 +9,13 @@ import { ItemType, MenuItemType } from "antd/es/menu/interface";
 import { TUser } from "../../../redux/features/auth/authSlice";
 const { Sider } = Layout;
 const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, _setCollapsed] = useState(false);
 
   const userRole = {
     ADMIN: "admin",
     USER: "user",
   };
-  const token = useAppSelector((state) => state.auth.token);
+  const token = useAppSelector((state) => state?.auth?.token);
 
   let user;
   if (token) {
