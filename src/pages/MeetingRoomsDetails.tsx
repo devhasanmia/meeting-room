@@ -65,7 +65,7 @@ const MeetingRoomsDetails = () => {
                 dispatch(
                   bookingReduxStore({
                     user: user.userId,
-                    room: roomsDetails.data._id,
+                    room: roomsDetails?.data?._id,
                     date: null,
                     slots: null,
                   })

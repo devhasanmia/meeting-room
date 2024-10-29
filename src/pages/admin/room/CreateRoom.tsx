@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import CustomInput from "../../components/ui/Input";
-import CustomButton from "../../components/ui/Button";
-import { roomCreateValidation } from "../../schemas/validation";
-import { TRoomProps } from "../../types/rooms.type";
-import { useCreateRoomMutation } from "../../redux/features/room/roomApi";
 import { toast } from "sonner";
+import { TRoomProps } from "../../../types/rooms.type";
+import { roomCreateValidation } from "../../../schemas/validation";
+import { useCreateRoomMutation } from "../../../redux/features/room/roomApi";
+import Button from "../../../components/ui/Button";
+import Input from "../../../components/ui/Input";
 
 const CreateRoom = () => {
   const {
@@ -64,7 +64,7 @@ const CreateRoom = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <CustomInput
+            <Input
               label="Room Name"
               name="name"
               placeholder="Room Name"
@@ -72,7 +72,7 @@ const CreateRoom = () => {
               register={register("name")}
               errors={errors}
             />
-            <CustomInput
+            <Input
               label="Room No"
               name="roomNo"
               placeholder="Room No"
@@ -80,7 +80,7 @@ const CreateRoom = () => {
               register={register("roomNo", { valueAsNumber: true })}
               errors={errors}
             />
-            <CustomInput
+            <Input
               label="Floor No"
               name="floorNo"
               placeholder="Floor No"
@@ -88,7 +88,7 @@ const CreateRoom = () => {
               register={register("floorNo", { valueAsNumber: true })}
               errors={errors}
             />
-            <CustomInput
+            <Input
               label="Capacity"
               name="capacity"
               placeholder="Capacity"
@@ -96,7 +96,7 @@ const CreateRoom = () => {
               register={register("capacity", { valueAsNumber: true })}
               errors={errors}
             />
-            <CustomInput
+            <Input
               label="Price Per Slot"
               name="pricePerSlot"
               placeholder="Price Per Slot"
@@ -176,7 +176,7 @@ const CreateRoom = () => {
               </ul>
             </div>
           )}
-          <CustomButton
+          <Button
             text={isLoading ? "Loading" : "Create Room"}
             type="submit"
             disabled={isLoading}

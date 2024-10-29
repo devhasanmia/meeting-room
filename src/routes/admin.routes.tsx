@@ -1,5 +1,4 @@
 import Dashboard from "../pages/admin/Dashboard";
-import CreateRoom from "../pages/admin/CreateRoom";
 import BookingsList from "../pages/admin/booking/BookingsList";
 import SlotsList from "../pages/admin/slots/SlotsList";
 import UpdateSlot from "../pages/admin/slots/UpdateSlot";
@@ -7,6 +6,7 @@ import UserList from "../pages/admin/users/UserList";
 import CreateSlots from "../pages/admin/slots/CreateSlots";
 import RoomList from "../pages/admin/room/RoomList";
 import UpdateRoom from "../pages/admin/room/UpdateRoom";
+import CreateRoom from "../pages/admin/room/CreateRoom";
 
 const adminPaths = [
   {

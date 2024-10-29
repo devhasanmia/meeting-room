@@ -16,6 +16,7 @@ import adminPaths from "./admin.routes";
 import Dashboard from "../pages/admin/Dashboard";
 import ProtectedRoute from "../components/layout/ProtectedRoute";
 import authenticatedUserPaths from "./user.routes";
+import AccessDenied from "../pages/error/AccessDenied";
 const router = createBrowserRouter([
   {
     path: "/user",
@@ -56,6 +57,14 @@ const router = createBrowserRouter([
         element: <AboutUs />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
         path: "contact-us",
         element: <ContactUs />,
       },
@@ -64,34 +73,12 @@ const router = createBrowserRouter([
         element: <MeetingRooms />,
       },
       {
+        path: "access-denied",
+        element: <AccessDenied />,
+      },
+      {
         path: "*",
-        element: <MainLayout />,
-        children: [
-          {
-            path: "*",
-            element: <NotFound />,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    path: "/signup",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "",
-        element: <Signup />,
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <MainLayout />,
-    children: [
-      {
-        path: "",
-        element: <Login />,
+        element: <NotFound />,
       },
     ],
   },

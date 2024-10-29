@@ -66,13 +66,13 @@ const Booking = () => {
           >
             <option value="">Select Date</option>
             {availableSlots?.data
-              ?.filter((item: any) => item.room._id === bookingRoom)
+              ?.filter((item: any) => item?.room?._id === bookingRoom)
               .map((item: any) => (
                 <option
                   className={`p-10 ${
                     item.isBooked ? "text-red-500 p-6" : "text-green-500"
                   }`}
-                  key={item._id}
+                  key={item?._id}
                   value={item.date}
                   disabled={item.isBooked && item.isDelete === true}
                 >
@@ -96,13 +96,13 @@ const Booking = () => {
               availableSlots?.data
                 ?.filter(
                   (item: any) =>
-                    item.room._id === bookingRoom
+                    item?.room?._id === bookingRoom
                 )
                 .map((item: any) => (
                   <option
                     disabled={item.isBooked || item.isDelete === true}
-                    key={item._id}
-                    value={item._id}
+                    key={item?._id}
+                    value={item?._id}
                     className={`p-10 ${
                       item.isBooked ? "text-red-500 p-6" : "text-green-500"
                     }`}
