@@ -3,9 +3,9 @@ import {
   useGetRoomsQuery,
 } from "../../redux/features/room/roomApi";
 import { MdDelete } from "react-icons/md";
-import { TbEditCircle } from "react-icons/tb";
 import { Spin, Table, Divider, Modal } from "antd";
 import { Link } from "react-router-dom";
+import { TbEditCircle } from "react-icons/tb";
 
 const columns = (handleDelete: (id: string) => void) => [
   {
@@ -33,8 +33,8 @@ const columns = (handleDelete: (id: string) => void) => [
     key: "action",
     render: (_: any, record: any) => (
       <div className="flex gap-2">
-        <Link to={`/admin/dashboard/room-edit/${record.key}`}>
-          <button className="bg-green-500 p-3 text-2xl hover:bg-green-600 text-white rounded-md">
+        <Link to={`/admin/room-update/${record.key}`}>
+        <button className="bg-green-500 p-3 text-2xl hover:bg-green-600 text-white rounded-md">
             <TbEditCircle />
           </button>
         </Link>

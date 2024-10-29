@@ -1,10 +1,13 @@
 import Dashboard from "../pages/admin/Dashboard";
 import CreateRoom from "../pages/admin/CreateRoom";
 import RoomList from "../pages/admin/RoomList";
-import BookingsList from "../pages/admin/BookingsList";
+import BookingsList from "../pages/admin/booking/BookingsList";
 import CreateSlots from "../pages/admin/CreateSlots";
 import SlotsList from "../pages/admin/slots/SlotsList";
 import UserList from "../pages/admin/UserList";
+import UpdateRoom from "../pages/admin/UpdateRoom";
+import UpdateSlot from "../pages/admin/slots/UpdateSlot";
+
 const adminPaths = [
   {
     name: "Dashboard",
@@ -15,6 +18,10 @@ const adminPaths = [
     name: "Room Management",
     children: [
       {
+        path: "room-update/:id",
+        element: <UpdateRoom />,
+      },
+      {
         name: "Create Room",
         path: "create-room",
         element: <CreateRoom />,
@@ -24,11 +31,6 @@ const adminPaths = [
         path: "room-list",
         element: <RoomList />,
       },
-      // {
-      //   name: "Room Update",
-      //   path: "room-update/:id",
-      //   element: <UpdateRoom />,
-      // },
     ],
   },
   {
@@ -44,11 +46,10 @@ const adminPaths = [
         path: "slots-list",
         element: <SlotsList />,
       },
-      // {
-      //   name: "Slots Update",
-      //   path: "slots-update/:id",
-      //   element: <UpdateSlot />,
-      // },
+      {
+        path: "slots-update/:id",
+        element: <UpdateSlot />,
+      },
     ],
   },
   {

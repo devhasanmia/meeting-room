@@ -49,7 +49,7 @@ const SlotsList = () => {
       key: "action",
       render: (_: any, record: any) => (
         <div className="flex gap-2">
-          <Link to={`slots-edit/${record.key}`}>
+          <Link to={`/admin/slots-update/${record.key}`}>
             <Button>Update</Button>
           </Link>
           <Button
@@ -61,7 +61,7 @@ const SlotsList = () => {
           </Button>
         </div>
       ),
-    },
+    }
   ];
   const { data: slots, isFetching } = useGetSlotsQuery(undefined);
   const dataSource = slots?.data?.map((slot: any) => ({

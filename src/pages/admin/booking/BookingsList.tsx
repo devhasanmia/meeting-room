@@ -1,9 +1,9 @@
-import { Button, Table } from "antd";
+import { Button, Divider, Table } from "antd";
 import {
   useBookingRoomDeleteMutation,
   useGetAllbookingsQuery,
   useRoomBookingStatusUpdateMutation,
-} from "../../redux/features/room/roomApi";
+} from "../../../redux/features/room/roomApi";
 
 const BookingsList = () => {
   const { data, isLoading, isError, isFetching } = useGetAllbookingsQuery(undefined);
@@ -89,7 +89,10 @@ const BookingsList = () => {
   }));
 
   return (
-    <Table columns={columns} dataSource={dataSource} loading={isFetching} />
+   <div>
+    <Divider>Booking List</Divider>
+     <Table columns={columns} dataSource={dataSource} loading={isFetching} />
+   </div>
   );
 };
 

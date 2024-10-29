@@ -1,6 +1,5 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import adminPaths from "./admin.routes";
 import { routeGenerator } from "../utils/routesGenerator";
 const Signup = lazy(() => import("../pages/auth/Signup"));
 const Login = lazy(() => import("../pages/auth/Login"));
@@ -17,10 +16,17 @@ const Booking = lazy(() => import("../pages/Booking"));
 const BookingSummary = lazy(() => import("../pages/BookingSummary"));
 const AdminLayout = lazy(() => import("../components/layout/AdminLayout"));
 
+import adminPaths from "./admin.routes";
+import Dashboard from "../pages/admin/Dashboard";
+import ProtectedRoute from "../components/layout/ProtectedRoute";
 const router = createBrowserRouter([
   {
-    path: "/user/",
-    element: <UserLayout />,
+    path: "/user",
+    element: (
+      <ProtectedRoute role="user">
+        <UserLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "my-booking",
@@ -95,8 +101,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
-    children: routeGenerator(adminPaths),
+    element: (
+      <ProtectedRoute role="admin">
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Dashboard />,
+      },
+      {
+        children: routeGenerator(adminPaths),
+      },
+    ],
   },
 ]);
 

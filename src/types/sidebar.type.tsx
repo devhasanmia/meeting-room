@@ -1,19 +1,25 @@
+import { JwtPayload } from "jwt-decode";
 import { ReactNode } from "react";
 
 export type TRoute = {
   path: string;
   element: ReactNode;
 };
+export type TSidebarItem =
+  | {
+      key: string;
+      label: ReactNode;
+      children?: TSidebarItem[];
+    }
+  | undefined;
 
 export type TUserPath = {
-  name: string;
+  name?: string;
   path?: string;
   element?: ReactNode;
   children?: TUserPath[];
 };
 
-export type TSidebarItem = {
-  key: string;
-  label: ReactNode;
-  children?: TSidebarItem[];
-};
+export interface User extends JwtPayload {
+  role: string;
+}

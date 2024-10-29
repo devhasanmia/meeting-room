@@ -2,31 +2,35 @@ import { Layout, Menu } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import adminPaths from "../../../routes/admin.routes";
-import { TUser } from "../../../types/Signup.type";
 import { tokenVerify } from "../../../utils/tokenVerify";
 import { useAppSelector } from "../../../redux/hooks";
-import { SidebarItemsGenerator } from "../../../utils/sidebarItemsGenerator";
-
+import { sidebarItemsGenerator } from "../../../utils/sidebarItemsGenerator";
+import { ItemType, MenuItemType } from "antd/es/menu/interface";
+import { TUser } from "../../../redux/features/auth/authSlice";
 const { Sider } = Layout;
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+
   const userRole = {
     ADMIN: "admin",
     USER: "user",
   };
   const token = useAppSelector((state) => state.auth.token);
+
   let user;
   if (token) {
     user = tokenVerify(token);
   }
+
   let sidebarItems;
   switch ((user as TUser)!.role) {
     case userRole.ADMIN:
-      sidebarItems = SidebarItemsGenerator(adminPaths, userRole.ADMIN);
+      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.ADMIN);
       break;
     default:
       break;
   }
+
   return (
     <Sider
       breakpoint="lg"
@@ -52,7 +56,7 @@ const Sidebar = () => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}
-        items={sidebarItems}
+        items={sidebarItems as ItemType<MenuItemType>[]}
       />
     </Sider>
   );
