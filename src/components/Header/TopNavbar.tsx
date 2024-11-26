@@ -21,59 +21,55 @@ const TopHeader = () => {
   };
 
   return (
-    <div className="bg-gray-150">
-      <div className="bg-white px-7 mx-auto container-fluid lg:px-24 md:px-12 p-2">
+    <div className="bg-gray-100 shadow-md">
+      <div className="bg-white px-5 py-3 container mx-auto lg:px-20 md:px-10">
         <div className="flex items-center justify-between">
-          {/* Email Display */}
+          {/* Email Section */}
           <div className="hidden md:block">
-            <ul className="flex items-center py-3">
-              <li className="mr-4">
-                <p className="text-sm text-gray-600">
-                  <MdOutlineMarkEmailUnread className="inline-block mr-2" />
-                  hasanmiaweb@gmail.com
-                </p>
-              </li>
-            </ul>
+            <p className="flex items-center text-sm text-gray-600">
+              <MdOutlineMarkEmailUnread className="text-lg text-emerald-500 mr-2" />
+              <span className="font-medium">hasanmiaweb@gmail.com</span>
+            </p>
           </div>
 
           {/* User Actions */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 sm:justify-center lg:justify-end lg:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             {user ? (
-              <div className="flex items-center gap-4 lg:gap-5">
-                <h1 className="hidden md:block text-gray-800">
-                  Hi! {user?.name}
+              <div className="flex items-center gap-6">
+                <h1 className="hidden md:block text-lg text-gray-800 font-semibold">
+                  Hi, {user?.name}!
                 </h1>
                 <div className="flex gap-4">
                   {user?.role === "admin" ? (
-                    <Link to={"/admin"}>
-                      <button className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
+                    <Link to="/admin">
+                      <button className="px-4 py-2 bg-emerald-500 text-white rounded shadow hover:bg-emerald-600 hover:shadow-lg transition-all duration-300">
                         Dashboard
                       </button>
                     </Link>
                   ) : (
-                    <Link to={"/user/my-booking"}>
-                      <button className="px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition duration-200">
+                    <Link to="/user/my-booking">
+                      <button className="px-4 py-2 bg-emerald-500 text-white rounded shadow hover:bg-emerald-600 hover:shadow-lg transition-all duration-300">
                         My Bookings
                       </button>
                     </Link>
                   )}
                   <button
                     onClick={handleLogout}
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200"
+                    className="px-4 py-2 bg-red-500 text-white rounded shadow hover:bg-red-600 hover:shadow-lg transition-all duration-300"
                   >
                     Logout
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-4 sm:gap-5">
+              <div className="flex gap-4">
                 <Link to="/login">
-                  <button className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-700 transition duration-200">
+                  <button className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded shadow hover:bg-emerald-600 hover:shadow-lg transition-all duration-300">
                     <FaSignInAlt /> Login
                   </button>
                 </Link>
                 <Link to="/signup">
-                  <button className="flex items-center gap-2 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600 transition duration-200">
+                  <button className="flex items-center gap-2 px-4 py-2 bg-teal-500 text-white rounded shadow hover:bg-teal-600 hover:shadow-lg transition-all duration-300">
                     <FaUserPlus /> Sign up
                   </button>
                 </Link>
