@@ -5,20 +5,10 @@ import { useState } from "react";
 import logo from "../../assets/images/logo.png";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulated authentication state
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
-  };
-
-  const handleLogin = () => {
-    console.log("Redirecting to login");
-    setIsMenuOpen(false); // Close menu after clicking
-  };
-
-  const handleSignUp = () => {
-    console.log("Redirecting to sign up");
-    setIsMenuOpen(false); // Close menu after clicking
   };
 
   const handleLogout = () => {
@@ -41,25 +31,21 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-8 items-center">
           <CustomLink
             to="/"
-            className="text-lg text-[#1F5D79] hover:text-[#00B6FF] transition duration-300"
           >
             Home
           </CustomLink>
           <CustomLink
             to="/meeting-rooms"
-            className="text-lg text-[#1F5D79] hover:text-[#00B6FF] transition duration-300"
           >
             Meeting Rooms
           </CustomLink>
           <CustomLink
             to="/about-us"
-            className="text-lg text-[#1F5D79] hover:text-[#00B6FF] transition duration-300"
           >
             About Us
           </CustomLink>
           <CustomLink
             to="/contact-us"
-            className="text-lg text-[#1F5D79] hover:text-[#00B6FF] transition duration-300"
           >
             Contact Us
           </CustomLink>
@@ -79,7 +65,6 @@ const Navbar = () => {
               </NavLink>
               <NavLink to={"/signup"}>
                 <button
-                  onClick={handleLogin}
                   className="px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300"
                 >
                   Signup
@@ -140,19 +125,17 @@ const Navbar = () => {
             <div className="flex flex-col gap-2 justify-between md:flex-row w-full">
               {isLoggedIn ? (
                 <button
-                  onClick={handleLogout}
                   className="w-full px-4 py-2 text-lg bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-all duration-300"
                 >
                   Logout
                 </button>
               ) : (
                 <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 w-full">
-                  <button
-                    onClick={handleSignUp}
-                    className="w-full md:w-auto px-6 py-2 text-lg font-semibold border border-white text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300"
-                  >
-                    Login
-                  </button>
+                  <Link to={"/login"}>
+                    <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold border border-white text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
+                      Login
+                    </button>
+                  </Link>
                   <Link to={"/signup"} className="w-full md:w-auto">
                     <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
                       Signup

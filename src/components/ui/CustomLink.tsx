@@ -5,14 +5,14 @@ type CustomLinkProps = {
   to: string;
   children: React.ReactNode;
   className?: string;
-  onClick?: () => void
+  onClick?: () => void;
 };
 
 const CustomLink = ({ to, children, className = "" }: CustomLinkProps) => {
   return (
     <Link
       to={to}
-      className={`text-white font-semibold hover:text-black transition duration-300 ${className}`}
+      className={`text-black hover:text-[#00B6FF] transition duration-300 ${className}`}
     >
       {children}
     </Link>
