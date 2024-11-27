@@ -30,15 +30,13 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center justify-center space-x-4">
-            <a href="#" className="hover:text-gray-400">
+            <a href="https://www.facebook.com/devhashmia/" className="hover:text-gray-400">
               <FaFacebookF size={24} />
             </a>
-            <a href="#" className="hover:text-gray-400">
+            <a href="https://x.com/devhashmia" className="hover:text-gray-400">
               <FaTwitter size={24} />
             </a>
-            <a href="#" className="hover:text-gray-400">
-              <FaInstagram size={24} />
-            </a>
+           
           </div>
 
           <div className="flex items-center justify-center space-x-4">

@@ -1,20 +1,30 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import CustomLink from "../ui/CustomLink";
 import { HiOutlineMenuAlt1, HiOutlineX } from "react-icons/hi";
 import { useState } from "react";
 import logo from "../../assets/images/logo.png";
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { tokenVerify } from "../../utils/tokenVerify";
+import { logout } from "../../redux/features/auth/authSlice";
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
+const Navbar = () => {
+  const token = useAppSelector((state) => state.auth.token);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  let user;
+  if (token) {
+    user = tokenVerify(token);
+  }
 
   const handleLogout = () => {
-    console.log("Logged out");
-    setIsLoggedIn(false); // Simulate logout
-    setIsMenuOpen(false); // Close menu after clicking
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
   };
 
   return (
@@ -23,50 +33,48 @@ const Navbar = () => {
         {/* Logo */}
         <div>
           <Link to="/">
-            <img src={logo} alt="" width={"250px"} />
+            <img src={logo} alt="Logo" width={"250px"} />
           </Link>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8 items-center">
-          <CustomLink
-            to="/"
-          >
-            Home
-          </CustomLink>
-          <CustomLink
-            to="/meeting-rooms"
-          >
-            Meeting Rooms
-          </CustomLink>
-          <CustomLink
-            to="/about-us"
-          >
-            About Us
-          </CustomLink>
-          <CustomLink
-            to="/contact-us"
-          >
-            Contact Us
-          </CustomLink>
-          {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full shadow-md hover:shadow-lg hover:from-red-600 hover:to-red-700 transition-all duration-300"
-            >
-              Logout
-            </button>
+          <CustomLink to="/">Home</CustomLink>
+          <CustomLink to="/meeting-rooms">Meeting Rooms</CustomLink>
+          <CustomLink to="/about-us">About Us</CustomLink>
+          <CustomLink to="/contact-us">Contact Us</CustomLink>
+
+          {user ? (
+            <div className="flex space-x-4">
+              {user?.role === "admin" ? (
+                <Link to="/admin">
+                  <button className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300">
+                    Dashboard
+                  </button>
+                </Link>
+              ) : (
+                <Link to="/user/my-booking">
+                  <button className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-full shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300">
+                    My Bookings
+                  </button>
+                </Link>
+              )}
+              <button
+                onClick={handleLogout}
+                className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full shadow-md hover:shadow-lg hover:from-red-600 hover:to-red-700 transition-all duration-300"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <div className="flex space-x-4">
-              <NavLink to={"/login"}>
-                <button className="px-6 py-2 text-lg font-semibold border border-whtie text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
+              <NavLink to="/login">
+                <button className="px-6 py-2 text-lg font-semibold border border-white text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
                   Login
                 </button>
               </NavLink>
-              <NavLink to={"/signup"}>
-                <button
-                  className="px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300"
-                >
+              <NavLink to="/signup">
+                <button className="px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
                   Signup
                 </button>
               </NavLink>
@@ -76,11 +84,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Toggle Button */}
         <div className="md:hidden">
-          <button
-            onClick={toggleMenu}
-            className="text-[#00B6FF]"
-            // className="p-2 text-white bg-yellow-400 hover:bg-yellow-500 rounded-lg focus:outline-none transition duration-300"
-          >
+          <button onClick={toggleMenu} className="text-[#00B6FF]">
             {isMenuOpen ? (
               <HiOutlineX size={24} />
             ) : (
@@ -122,28 +126,43 @@ const Navbar = () => {
             >
               Contact Us
             </CustomLink>
-            <div className="flex flex-col gap-2 justify-between md:flex-row w-full">
-              {isLoggedIn ? (
+
+            {user ? (
+              <div className="flex flex-col gap-2 justify-between md:flex-row w-full">
+                {user?.role === "admin" ? (
+                  <Link to="/admin">
+                    <button className="w-full px-4 py-2 text-lg bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg shadow hover:bg-emerald-600 transition-all duration-300">
+                      Dashboard
+                    </button>
+                  </Link>
+                ) : (
+                  <Link to="/user/my-booking">
+                    <button className="w-full px-4 py-2 text-lg bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg shadow hover:bg-emerald-600 transition-all duration-300">
+                      My Bookings
+                    </button>
+                  </Link>
+                )}
                 <button
-                  className="w-full px-4 py-2 text-lg bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition-all duration-300"
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-lg bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg shadow hover:bg-red-600 transition-all duration-300"
                 >
                   Logout
                 </button>
-              ) : (
-                <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 w-full">
-                  <Link to={"/login"}>
-                    <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold border border-white text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
-                      Login
-                    </button>
-                  </Link>
-                  <Link to={"/signup"} className="w-full md:w-auto">
-                    <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
-                      Signup
-                    </button>
-                  </Link>
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 w-full">
+                <NavLink to="/login">
+                  <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold border border-white text-[#1F5D79] hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
+                    Login
+                  </button>
+                </NavLink>
+                <NavLink to="/signup" className="w-full md:w-auto">
+                  <button className="w-full md:w-auto px-6 py-2 text-lg font-semibold bg-[#00B6FF] text-white hover:bg-[#00B6FF] hover:text-white rounded-full transition-all duration-300">
+                    Signup
+                  </button>
+                </NavLink>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -8,32 +8,40 @@ import { logout } from "../../redux/features/auth/authSlice";
 const UserLayout = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   return (
     <>
       <Navbar />
-      <div className="flex flex-col md:flex-row bg-white  md:space-y-0 md:space-x-6 min-h-screen">
-        <div className="w-full md:w-1/6  p-6 shadow-sm bg-cyan-50">
-          <div className="mt-3">
-            <Link to={"/user/my-booking"}>
-              <Button text="My Bookings" type="button" />
-            </Link>
-            <Button
-              text="Logout"
-              onClick={() => {
-                dispatch(logout());
-                navigate("/", { replace: true });
-              }}
-              bgColor="bg-pink-500"
-              bgHover="hover:bg-pink-500"
-            />
+
+      <div className="flex flex-col md:flex-row  min-h-screen mt-20">
+        <div className="w-full md:w-1/5 p-6 text-white shadow-lg">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Link to="/user/my-booking">
+                <Button text="My Bookings" type="button" />
+              </Link>
+              <Button
+                text="Logout"
+                onClick={() => {
+                  dispatch(logout());
+                  navigate("/", { replace: true });
+                }}
+                bgColor="bg-pink-600"
+                bgHover="hover:bg-pink-700"
+              />
+            </div>
           </div>
         </div>
-        <div className="w-full md:w-3/3">
-          <div className="container mx-auto p-5">
+
+        {/* Main Content Section */}
+        <div className="w-full md:w-4/5 p-6 bg-white">
+          <div className="container mx-auto space-y-8">
             <Outlet />
           </div>
         </div>
       </div>
+
+      {/* Footer Section */}
       <Footer />
     </>
   );
