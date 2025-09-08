@@ -1,6 +1,6 @@
 # Meeting Room
 
-A web application for managing meeting rooms with efficient and user-friendly features.
+A web application for managing meeting rooms with efficient and user-friendly features
 
 ## Technologies Used
 
