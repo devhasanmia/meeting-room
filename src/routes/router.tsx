@@ -11,6 +11,7 @@ const ContactUs = lazy(() => import("../pages/ContactUs"));
 const Home = lazy(() => import("../pages/Home"));
 const UserLayout = lazy(() => import("../components/layout/UserLayout"));
 const AdminLayout = lazy(() => import("../components/layout/AdminLayout"));
+const MeetingRoomsDetails = lazy(() => import("../pages/MeetingRoomsDetails"));
 
 import adminPaths from "./admin.routes";
 import Dashboard from "../pages/admin/Dashboard";
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
       {
         path: "access-denied",
         element: <AccessDenied />,
+      },
+      {
+        path: "meeting-rooms-details/:_id",
+        element: <MeetingRoomsDetails />,
       },
       {
         path: "*",

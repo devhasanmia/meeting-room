@@ -1,32 +1,34 @@
+import { FiSearch, FiCalendar, FiCheckCircle, FiActivity } from "react-icons/fi";
+
 const HowItWorks = () => {
   const steps = [
     {
       id: "01",
       title: "Browse Available Rooms",
       description: "View a list of meeting rooms with real-time availability, capacities, and premium amenities.",
-      icon: "🗂️",
-      colorClass: "bg-indigo-50 text-indigo-600 border-indigo-100",
+      icon: <FiSearch className="text-2xl" />,
+      colorClass: "text-indigo-600 bg-indigo-50 border-indigo-100",
     },
     {
       id: "02",
       title: "Select Date & Time",
       description: "Choose your desired date and time slots using our simple and intuitive calendar interface.",
-      icon: "📅",
-      colorClass: "bg-emerald-50 text-emerald-600 border-emerald-100",
+      icon: <FiCalendar className="text-2xl" />,
+      colorClass: "text-emerald-600 bg-emerald-50 border-emerald-100",
     },
     {
       id: "03",
       title: "Confirm Your Booking",
       description: "Reserve your selected room instantly and finalize payment to secure your space.",
-      icon: "✅",
-      colorClass: "bg-violet-50 text-violet-600 border-violet-100",
+      icon: <FiCheckCircle className="text-2xl" />,
+      colorClass: "text-violet-600 bg-violet-50 border-violet-100",
     },
     {
       id: "04",
       title: "Manage Your Schedule",
       description: "Easily view, modify, or cancel bookings directly from your personal user dashboard.",
-      icon: "🔄",
-      colorClass: "bg-amber-50 text-amber-600 border-amber-100",
+      icon: <FiActivity className="text-2xl" />,
+      colorClass: "text-amber-600 bg-amber-50 border-amber-100",
     },
   ];
 
@@ -57,7 +59,7 @@ const HowItWorks = () => {
               </div>
 
               {/* Icon */}
-              <div className="flex items-center justify-center w-16 h-16 rounded-xl text-3xl mb-6 shadow-inner bg-white border border-slate-100">
+              <div className={`flex items-center justify-center w-14 h-14 rounded-xl mb-6 shadow-sm border ${step.colorClass}`}>
                 {step.icon}
               </div>
 

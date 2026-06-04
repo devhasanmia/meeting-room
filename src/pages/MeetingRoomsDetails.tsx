@@ -2,30 +2,20 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetRoomsByIdQuery } from "../redux/features/room/roomApi";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { bookingReduxStore } from "../redux/features/room/roomSlice";
-import { useEffect } from "react";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { FiUsers, FiDollarSign, FiHash, FiLayers } from "react-icons/fi";
 import { HiCheck } from "react-icons/hi";
+import { toast } from "sonner";
 
 const MeetingRoomsDetails = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
   const { _id } = useParams();
   const { data: roomsDetails, isLoading } = useGetRoomsByIdQuery(_id);
   const antIcon = <LoadingOutlined style={{ fontSize: 32, color: '#4f46e5' }} spin />;
-
-  if (!user) {
-    return null;
-  }
 
   if (isLoading) {
     return (
@@ -124,18 +114,26 @@ const MeetingRoomsDetails = () => {
           </div>
 
           <div className="pt-4">
-            <Link to="/user/room-booking">
+            <Link
+              to="/user/room-booking"
+              onClick={(e) => {
+                if (!user) {
+                  e.preventDefault();
+                  toast.error("Please login to book a room");
+                  navigate("/login");
+                  return;
+                }
+                dispatch(
+                  bookingReduxStore({
+                    user: user.userId,
+                    room: roomsDetails?.data?._id,
+                    date: null,
+                    slots: null,
+                  })
+                );
+              }}
+            >
               <button
-                onClick={() => {
-                  dispatch(
-                    bookingReduxStore({
-                      user: user.userId,
-                      room: roomsDetails?.data?._id,
-                      date: null,
-                      slots: null,
-                    })
-                  );
-                }}
                 className="w-full py-4 px-6 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform active:scale-95 hover:-translate-y-0.5"
               >
                 Book This Room Now

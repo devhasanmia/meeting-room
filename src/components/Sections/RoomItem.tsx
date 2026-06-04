@@ -56,7 +56,7 @@ const RoomItem = ({ _id, name, capacity, pricePerSlot, image, roomNo, floorNo }:
         </div>
 
         <div className="mt-6">
-          <Link to={`/user/meeting-rooms-details/${_id}`}>
+          <Link to={`/meeting-rooms-details/${_id}`}>
             <Button text="See Details" bgColor="bg-indigo-600 hover:bg-indigo-700" />
           </Link>
         </div>

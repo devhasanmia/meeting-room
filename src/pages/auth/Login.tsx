@@ -22,10 +22,30 @@ const Login = () => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<TuserLogin>({
     resolver: zodResolver(loginValidation),
   });
+
+  const handleQuickLogin = async (email: string, pass: string) => {
+    setValue("email", email, { shouldValidate: true });
+    setValue("password", pass, { shouldValidate: true });
+    try {
+      const res = await login({ email, password: pass }).unwrap();
+      const userDecoded = tokenVerify(res.token);
+      dispatch(
+        setUser({
+          user: userDecoded,
+          token: res?.token,
+        })
+      );
+      navigate(`/`, { replace: true });
+      reset();
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Login failed");
+    }
+  };
 
   const onSubmit: SubmitHandler<TuserLogin> = async (formData) => {
     try {
@@ -62,6 +82,29 @@ const Login = () => {
           <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
             Login to access your bookings
           </p>
+        </div>
+
+        {/* Quick Login Section */}
+        <div className="mb-6 p-4 bg-slate-50 border border-slate-200/60 rounded-xl space-y-3">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">
+            Demo / Tester Quick Login
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => handleQuickLogin("hasanmiaweb@gmail.com", "12345678")}
+              className="px-4 py-2.5 text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-100 rounded-lg transition"
+            >
+              Admin Demo
+            </button>
+            <button
+              type="button"
+              onClick={() => handleQuickLogin("altab@gmail.com", "12345678")}
+              className="px-4 py-2.5 text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-600 border border-emerald-100 rounded-lg transition"
+            >
+              User Demo
+            </button>
+          </div>
         </div>
 
         {/* Form */}
