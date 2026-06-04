@@ -1,3 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Ant Design Global Customizations */
+.ant-layout {
+  background: #f8fafc !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Sidebar Customizations */
+.ant-layout-sider {
+  background: #0f172a !important; /* Deep Slate/Indigo */
+  border-right: 1px solid #1e293b;
+}
+
+.ant-layout-sider .ant-menu {
+  background: transparent !important;
+  border-inline-end: none !important;
+}
+
+.ant-menu-item {
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  color: #94a3b8 !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-menu-item:hover, .ant-menu-item-selected {
+  background: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+}
+
+.ant-menu-submenu-title {
+  color: #94a3b8 !important;
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+}
+
+.ant-menu-submenu-title:hover {
+  color: #818cf8 !important;
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+.ant-menu-sub.ant-menu-inline {
+  background: rgba(15, 23, 42, 0.5) !important;
+}
+
+/* Table Customizations */
+.ant-table {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  font-weight: 600 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.ant-table-row:hover > td {
+  background: #f8fafc !important;
+}
+
+.ant-pagination-item-active {
+  border-color: #6366f1 !important;
+}
+
+.ant-pagination-item-active a {
+  color: #6366f1 !important;
+}
+
+.ant-divider {
+  border-block-start: 1px solid #e2e8f0 !important;
+}
+
+.ant-divider-horizontal.ant-divider-with-text {
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+/* Card glassmorphism utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-panel-dark {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

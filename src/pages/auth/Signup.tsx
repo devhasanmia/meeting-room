@@ -6,13 +6,13 @@ import { useSignupMutation } from "../../redux/features/auth/authApi";
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userValidation } from "../../schemas/validation";
-import { Divider } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { FiUserPlus } from "react-icons/fi";
 
 const Signup = () => {
   const [signup, { isLoading, data: signupData }] = useSignupMutation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -26,9 +26,9 @@ const Signup = () => {
     try {
       await signup(formData).unwrap();
       reset();
-      navigate(`/login`, { replace: true })
+      navigate(`/login`, { replace: true });
     } catch (error: any) {
-      toast.error(error.data.errorMessages[0].message);
+      toast.error(error?.data?.errorMessages?.[0]?.message || "Registration failed");
     }
   };
 
@@ -39,27 +39,37 @@ const Signup = () => {
   }, [signupData]);
 
   return (
-    <div className="bg-gray-100 flex items-center justify-center min-h-[100vh]">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
-        <Divider style={{ fontSize: "40px" }}>Sign Up</Divider>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="bg-slate-50 flex items-center justify-center min-h-screen px-4 py-12">
+      <div className="bg-white border border-slate-100 p-8 md:p-10 rounded-2xl shadow-xl w-full max-w-2xl">
+        {/* Top Header */}
+        <div className="text-center space-y-3 mb-8">
+          <div className="flex justify-center mx-auto items-center rounded-2xl w-12 h-12 bg-indigo-50 text-indigo-600 shadow-inner">
+            <FiUserPlus className="text-xl" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Create Account</h2>
+          <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
+            Sign up to get started booking rooms
+          </p>
+        </div>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               errors={errors}
               register={register("name")}
               type="text"
               label="Full Name"
               name="name"
-              placeholder="Enter your full name"
+              placeholder="John Doe"
             />
-
             <Input
               errors={errors}
               register={register("email")}
               type="email"
-              label="Email"
+              label="Email Address"
               name="email"
-              placeholder="Enter your Email Address"
+              placeholder="john@example.com"
             />
             <Input
               errors={errors}
@@ -67,35 +77,41 @@ const Signup = () => {
               type="password"
               label="Password"
               name="password"
-              placeholder="Password"
+              placeholder="••••••••"
             />
             <Input
               errors={errors}
               register={register("phone")}
               type="text"
-              label="Phone"
+              label="Phone Number"
               name="phone"
-              placeholder="Phone Number"
-            />
-            <Input
-              errors={errors}
-              register={register("address")}
-              type="text"
-              label="address"
-              name="address"
-              placeholder="address"
+              placeholder="+88017XXXXXXXX"
             />
           </div>
-          <Button
-            type="submit"
-            text="Register"
-            lodding={isLoading}
-            disabled={isLoading}
+          <Input
+            errors={errors}
+            register={register("address")}
+            type="text"
+            label="Address"
+            name="address"
+            placeholder="Natore, Bangladesh"
           />
+
+          <div className="pt-2">
+            <Button
+              type="submit"
+              text="Register"
+              lodding={isLoading}
+              disabled={isLoading}
+              bgColor="bg-indigo-600 hover:bg-indigo-700"
+            />
+          </div>
         </form>
-        <p className="text-center mt-4 text-gray-600">
+
+        {/* Bottom Link */}
+        <p className="text-center mt-6 text-sm text-slate-500 font-medium">
           Already have an account?{" "}
-          <Link to={"/login"} className="text-blue-500 hover:underline">
+          <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-bold hover:underline transition">
             Login here
           </Link>
         </p>

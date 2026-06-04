@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
 type CustomLinkProps = {
   to: string;
@@ -8,15 +8,27 @@ type CustomLinkProps = {
   onClick?: () => void;
 };
 
-const CustomLink = ({ to, children, className = "" }: CustomLinkProps) => {
+const CustomLink = ({ to, children, className = "", onClick }: CustomLinkProps) => {
+  const resolved = useResolvedPath(to);
+  const match = useMatch({ path: resolved.pathname, end: true });
+
   return (
     <Link
       to={to}
-      className={`text-black hover:text-[#00B6FF] transition duration-300 ${className}`}
+      onClick={onClick}
+      className={`relative py-2 text-sm font-semibold transition-all duration-300 ${
+        match
+          ? "text-indigo-600"
+          : "text-slate-600 hover:text-indigo-600"
+      } ${className}`}
     >
       {children}
+      {match && (
+        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 rounded-full animate-fade-in" />
+      )}
     </Link>
   );
 };
 
 export default CustomLink;
+
